@@ -27,32 +27,6 @@
     <title>Product</title>
     <link rel="stylesheet" href="/CSS/style.css" />
     <style>
-      .wishlist-icon {
-        position: absolute;
-        top: 55px;
-        left: 500px;
-        transform: translate(-50%, -50%);
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        z-index: 1;
-        /* Ensure the icon is above the image */
-      }
-
-      .carousel-item:hover .wishlist-icon {
-        opacity: 1;
-      }
-
-      .wishlist-icon i {
-        color: white;
-        /* Set the default color of the heart icon */
-        font-size: 30px;
-      }
-
-      .wishlist-icon i.clicked {
-        color: red;
-        /* Change color to red when clicked */
-      }
-
       .cart-dropdown {
         display: none;
         position: absolute;
@@ -88,10 +62,6 @@
         padding: 5px 8px;
         font-size: 10px;
         font-weight: bold;
-      }
-
-      .line {
-        width: 60%;
       }
 
       .btnproduct {
@@ -137,28 +107,6 @@
         font-size: 20px;
       }
 
-      .product-details {
-        flex: 1;
-      }
-
-      .image-container {
-        margin: 0;
-        /* Reset margin */
-        padding: 0;
-        /* Reset padding */
-      }
-
-      .product-details {
-        margin-right: 200px;
-        /* Original margin */
-      }
-
-      /* Adjust margin to move text closer to the image */
-      .product-details {
-        margin-right: 100px;
-        /* Adjust as needed */
-      }
-
       .product-container {
         display: flex;
         align-items: center;
@@ -166,17 +114,12 @@
         margin-left: 0;
       }
 
-      .image-container img {
-        max-width: 120%;
-        /* Ensure image doesn't exceed container width */
-        height: auto;
-        /* Maintain aspect ratio */
-      }
-
       .product-details {
         flex: 1;
+        margin-right: 100px;
         margin-left: 20px;
-        /* Adjust margin as needed */
+        margin-top: 10px;
+        text-align: center;
       }
 
       .add-to-cart-btn {
@@ -191,18 +134,12 @@
       .cart-item img {
         max-width: 200px;
         height: auto;
-        /* margin-right: 10px; */
       }
 
       .cart-item-content {
         display: flex;
         align-items: center;
         justify-content: left;
-      }
-
-      .product-details {
-        flex: 1;
-        margin-left: 20px;
       }
 
       .delete {
@@ -221,10 +158,6 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-      }
-
-      .product-details {
-        flex: 1;
       }
 
       .product-description {
@@ -259,16 +192,6 @@
         /* Change cursor to pointer */
       }
 
-      .image-container {
-        margin-left: 0;
-        /* Ensure no left margin */
-      }
-
-      .carousel-inner {
-        padding-left: 0;
-        /* Ensure no left padding */
-      }
-
       @media (max-width: 767px) {
         .product-container {
           display: flex;
@@ -286,79 +209,12 @@
           /* Reset margin */
           padding: 0;
           /* Reset padding */
-        }
-
-        .product-details {
-          margin-top: 10px;
-          /* Add some space between image and details */
-        }
-
-        .product-container img {
-          order: -1;
-          /* Move the image to the top */
-          margin-bottom: 10px;
-          /* Add some space between image and details */
+          align-items: center;
         }
 
         .description-price {
           order: 2;
           /* Move the description and price below */
-        }
-
-        .product-container {
-          display: flex;
-          flex-direction: column;
-        }
-
-        .product-container img {
-          order: -1;
-          /* Move the image to the top */
-          margin-bottom: 10px;
-          /* Add some space between image and details */
-          margin: 0;
-          align-items: center;
-        }
-
-        .product-details {
-          margin-top: 10px;
-          /* Add some space between image and details */
-          text-align: center;
-          /* Center-align the text */
-        }
-
-        /* Update the CSS for image responsiveness */
-        .imageBag {
-          width: 100%;
-          /* Ensure the image fills the width of its container */
-          height: auto;
-          /* Maintain aspect ratio */
-          margin-bottom: 5px;
-          margin-left: 0;
-          /* Align the image to the left */
-          margin-right: 0;
-          /* Align the image to the right */
-        }
-
-        .image-container {
-          margin-left: 0;
-          /* Ensure no left margin */
-        }
-
-        .carousel-inner {
-          padding-left: 0;
-          /* Ensure no left padding */
-          margin-left: 0;
-        }
-
-        .wishlist-icon {
-          position: absolute;
-          top: 40px;
-          left: 430px;
-          transform: translate(-50%, -50%);
-          opacity: 0;
-          transition: opacity 0.3s ease;
-          z-index: 1;
-          /* Ensure the icon is above the image */
         }
       }
     </style>
