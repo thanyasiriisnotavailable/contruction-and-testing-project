@@ -17,8 +17,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '200447nn',
-    database: 'project'
+    password: 'Patty.27092003',
+    database: 'project_323'
   });
   
 connection.connect((err) => {
@@ -122,7 +122,7 @@ app.get('/Bag', (req, res) => {
         results.forEach(product => {
             product.product_price = parseFloat(product.product_price); 
         });
-        res.render('Bag', { products: results });
+        res.render('Category/Bag', { products: results });
     });
 });
 
@@ -137,7 +137,7 @@ app.get('/Top', (req, res) => {
         results.forEach(product => {
             product.product_price = parseFloat(product.product_price); 
         });
-        res.render('Top', { products: results });
+        res.render('Category/Top', { products: results });
     });
 });
 
@@ -152,7 +152,7 @@ app.get('/Shoes', (req, res) => {
         results.forEach(product => {
             product.product_price = parseFloat(product.product_price); 
         });
-        res.render('Shoes', { products: results });
+        res.render('Category/Shoes', { products: results });
     });
 });
 
@@ -167,7 +167,7 @@ app.get('/Trousersnshorts', (req, res) => {
         results.forEach(product => {
             product.product_price = parseFloat(product.product_price); 
         });
-        res.render('Trousersnshorts', { products: results });
+        res.render('Category/Trousersnshorts', { products: results });
     });
 });
 
