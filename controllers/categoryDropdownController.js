@@ -1,46 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const wishlistIcons = document.querySelectorAll(".wishlist-icon");
-
-  wishlistIcons.forEach((icon) => {
-    icon.addEventListener("click", function () {
-      const productId = this.parentElement.getAttribute("product_id");
-
-      // Make an AJAX request to add the product to the wishlist
-      fetch("/addwishlist", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ productId: productId }),
-      })
-        .then((response) => {
-          if (response.ok) {
-            // If adding to wishlist is successful, redirect to wishlist page
-            window.location.href = "/wishlist"; // Redirect to wishlist page
-          } else {
-            // Handle error response if needed
-            console.error("Failed to add product to wishlist");
-          }
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-    });
-  });
-});
-
-// JavaScript to handle click event on wishlist icon
-document.addEventListener("DOMContentLoaded", function () {
-  const wishlistIcons = document.querySelectorAll(".wishlist-icon");
-
-  wishlistIcons.forEach((icon) => {
-    icon.addEventListener("click", function () {
-      icon.querySelector("i").classList.toggle("clicked"); // Toggle clicked class
-    });
-  });
-});
-
-document.addEventListener("DOMContentLoaded", function () {
   fetch("/categories")
     .then((response) => response.json())
     .then((categories) => {
@@ -76,4 +34,25 @@ document.addEventListener("DOMContentLoaded", function () {
       categoryDropdown.appendChild(viewAllCategoryItem);
     })
     .catch((error) => console.error("Error fetching categories:", error));
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const exitFullscreenButton = document.getElementById("exitFullscreenButton");
+  const navbarCollapse = document.querySelector(".navbar-collapse");
+
+  exitFullscreenButton.style.display = "none";
+
+  const navbarToggler = document.querySelector(".navbar-toggler");
+  navbarToggler.addEventListener("click", function () {
+    if (!navbarCollapse.classList.contains("show")) {
+      exitFullscreenButton.style.display = "block";
+    } else {
+      exitFullscreenButton.style.display = "none";
+    }
+  });
+
+  exitFullscreenButton.addEventListener("click", function () {
+    navbarCollapse.classList.remove("show");
+    exitFullscreenButton.style.display = "none";
+  });
 });
