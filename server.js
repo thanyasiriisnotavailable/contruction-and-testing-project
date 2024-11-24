@@ -241,7 +241,7 @@ app.get('/productall', (req, res) => {
             products.forEach(product => {
                 product.product_price = parseFloat(product.product_price);
             });
-            res.render('productall', { products, currentPage, totalPages });
+            res.render('allOfProduct', { products, currentPage, totalPages });
         });
     });
 });
