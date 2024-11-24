@@ -1,51 +1,94 @@
 <!-- Navbar with cart and wishlist -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-      <a class="navbar-brand" href="/html/Homepage.html">
-          <img src="/images/jacquemus-logos-idHdmUIL-k.png" alt="Logo" width="120"
-              class="navbar-brand element-with-space" href="/html/Homepage.html">
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-          aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-      </button>
-      <button id="exitFullscreenButton" class="exit-fullscreen-button">&times;</button>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
-          <ul class="navbar-nav">
-              <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                      data-bs-toggle="dropdown" aria-expanded="false">
-                      Product
-                  </a>
-                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="categoryDropdown">
-                  </ul>
-              </li>
+    <a class="navbar-brand" href="/html/Homepage.html">
+      <img
+        src="/images/jacquemus-logos-idHdmUIL-k.png"
+        alt="Logo"
+        width="120"
+        class="navbar-brand element-with-space"
+        href="/html/Homepage.html"
+      />
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <button id="exitFullscreenButton" class="exit-fullscreen-button">
+      &times;
+    </button>
+    <div
+      class="collapse navbar-collapse justify-content-end"
+      id="navbarNavDropdown"
+    >
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Product
+          </a>
+          <ul
+            class="dropdown-menu"
+            aria-labelledby="navbarDropdown"
+            id="categoryDropdown"
+          ></ul>
+        </li>
 
-              <li class="nav-item">
-                  <a class="nav-link" href="/html/ContactUs/contactus.html">contact us</a>
-              </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/html/ContactUs/contactus.html"
+            >contact us</a
+          >
+        </li>
 
-              <li class="nav-item">
-                  <a class="nav-link" href="/html/Account/login.html">account</a>
-              </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/html/Account/login.html">account</a>
+        </li>
 
-              <li class="nav-item">
-                  <a class="d-lg-none nav-link mr-3" href="/wishlist">Favorite</a>
-                  <a class="d-none d-lg-inline mr-3 nav-link" href="/wishlist">
-                      <img src="/images/Favorite.png" alt="Favorite Icon" width="45"
-                          class="d-inline mr-3 nav-link"></a>
-              </li>
+        <li class="nav-item">
+          <a class="d-lg-none nav-link mr-3" href="/wishlist">Favorite</a>
+          <a class="d-none d-lg-inline mr-3 nav-link" href="/wishlist">
+            <img
+              src="/images/Favorite.png"
+              alt="Favorite Icon"
+              width="45"
+              class="d-inline mr-3 nav-link"
+          /></a>
+        </li>
 
-              <li class="nav-item">
-                  <a class="d-lg-none nav-link mr-3" href="/html/CartnWishlist/cart.html">Cart</a>
-                  <a class="d-none d-lg-inline mr-3 nav-link" href="/html/CartnWishlist/cart.html">
-                      <img src="/images/shopping-cart 1cart-icon.png" alt="Cart Icon" width="45"
-                          class="d-inline mr-3 nav-link"></a>
-              </li>
-          </ul>
-      </div>
+        <li class="nav-item">
+          <a
+            class="d-lg-none nav-link mr-3"
+            href="/html/CartnWishlist/cart.html"
+            >Cart</a
+          >
+          <a
+            class="d-none d-lg-inline mr-3 nav-link"
+            href="/html/CartnWishlist/cart.html"
+          >
+            <img
+              src="/images/shopping-cart 1cart-icon.png"
+              alt="Cart Icon"
+              width="45"
+              class="d-inline mr-3 nav-link"
+          /></a>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>
 
-<script src="/controllers/categoryDropdownController.js"></script>
-<script src="/controllers/navbarToggleController.js"></script>
+<script src="/controllers/navbar/navbarToggleController.js"></script>
+<script src="/controllers/navbar/categoryDropdownController.js"></script>
