@@ -1,163 +1,166 @@
 <style>
-   .cart-dropdown {
-        display: none;
-        position: absolute;
-        background-color: #f9f9f9;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-        z-index: 1;
-        right: 0;
-        margin-right: 5px;
-        width: 50%;
-        text-align: center;
-      }
+  .cart-dropdown {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    right: 0;
+    margin-right: 5px;
+    width: 50%;
+    text-align: center;
+  }
 
-      .cart-dropdown a:hover {
-        background-color: #f2f2f2;
-      }
+  .cart-dropdown a:hover {
+    background-color: #f2f2f2;
+  }
 
-      .cart-dropdown.active {
-        display: block;
-      }
+  .cart-dropdown.active {
+    display: block;
+  }
 
-      .cart-icon i {
-        margin-right: 5px;
-      }
+  .cart-icon i {
+    margin-right: 5px;
+  }
 
 
-      .size-option {
-        cursor: pointer;
-        margin-right: 5px;
-        padding: 15px;
-      }
+  .size-option {
+    cursor: pointer;
+    margin-right: 5px;
+    padding: 15px;
+  }
 
-      .selected-size {
-        border-bottom: 2px solid black;
-        border-radius: 5px;
-        padding: 10px;
-      }
+  .selected-size {
+    border-bottom: 2px solid black;
+    border-radius: 5px;
+    padding: 10px;
+  }
 
-      #container button {
-        border: none;
-        padding: 10px 10px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 4px;
-        color: black;
-        position: relative;
-        left: -2px;
-        margin-top: 40px;
-      }
+  #container button {
+    border: none;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    color: black;
+    position: relative;
+    left: -2px;
+    margin-top: 40px;
+  }
 
-      .bagimg {
-        width: 35px;
-        height: auto;
-        margin-bottom: 5px;
-        margin-left: 5px;
-      }
-      
-      .cart-item img {
-        max-width: 200px;
-        height: auto;
-      }
+  .bagimg {
+    width: 35px;
+    height: auto;
+    margin-bottom: 5px;
+    margin-left: 5px;
+  }
 
-      .cart-item-content {
-        display: flex;
-        align-items: center;
-        justify-content: left;
-      }
+  .cart-item img {
+    max-width: 200px;
+    height: auto;
+  }
 
-      .delete {
-        margin-top: 10px;
-      }
+  .cart-item-content {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+  }
 
-      .product-details h2 {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        width: 100%;
-        font-size: 20px;
-      }
+  .delete {
+    margin-top: 10px;
+  }
 
-      .cart-item-content {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
+  .product-details h2 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+    font-size: 20px;
+  }
 
-      .product-description {
-        margin-right: 10px;
-      }
+  .cart-item-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-      .product-price {
-        flex-shrink: 0;
-        text-align: right;
-      }
+  .product-description {
+    margin-right: 10px;
+  }
 
-      .cart-item-content {
-        position: relative;
-      }
+  .product-price {
+    flex-shrink: 0;
+    text-align: right;
+  }
 
-      .delete {
-        position: absolute;
-        top: 0;
-        left: 350px;
-        margin-top: 220px;
-       
-        background: none;
-       
-        border: none;
-       
-        padding: 0;
-     
-        text-decoration: underline;
-        
-        cursor: pointer;
-      }
+  .cart-item-content {
+    position: relative;
+  }
 
-      @media (max-width: 767px) {
-        .product-container {
-          display: flex;
-          flex-direction: column;
-          margin-left: 0;
-          width: 100%;
-        }
+  .delete {
+    position: absolute;
+    top: 0;
+    left: 350px;
+    margin-top: 220px;
 
-        .product-container img {
-          order: -1;
-       
-          margin-bottom: 10px;
-        
-          margin: 0;
-    
-          padding: 0;
-         
-          align-items: center;
-        }
+    background: none;
 
-        .description-price {
-          order: 2;
-        }
-      }
+    border: none;
+
+    padding: 0;
+
+    text-decoration: underline;
+
+    cursor: pointer;
+  }
+
+  @media (max-width: 767px) {
+    .product-container {
+      display: flex;
+      flex-direction: column;
+      margin-left: 0;
+      width: 100%;
+    }
+
+    .product-container img {
+      order: -1;
+
+      margin-bottom: 10px;
+
+      margin: 0;
+
+      padding: 0;
+
+      align-items: center;
+    }
+
+    .description-price {
+      order: 2;
+    }
+  }
 </style>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="/html/Homepage.html">
-      <img src="/images/jacquemus-logos-idHdmUIL-k.png" alt="Logo" width="120" class="navbar-brand element-with-space" href="/html/Homepage.html">
+      <img src="/images/jacquemus-logos-idHdmUIL-k.png" alt="Logo" width="120" class="navbar-brand element-with-space"
+        href="/html/Homepage.html">
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <button id="exitFullscreenButton" class="exit-fullscreen-button">&times;</button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Product</a>
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">Product</a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="categoryDropdown"></ul>
         </li>
         <li class="nav-item">
@@ -187,33 +190,40 @@
             <hr class="line">
             <div>
               <div class="cartdrop">
-                <% let totalPrice = 0; %>
-                <% cartItems.forEach(cartItem => { %>
-                  <% let productPrice = parseFloat(cartItem.product_price); %>
-                  <% let productQuantity = parseInt(cartItem.product_quantity); %>
-                  <% totalPrice += productPrice * productQuantity; %>
-                  <div class="cart-item">
-                    <img src="<%= cartItem.product_images1 %>" width="200px" height="260px" alt="Product Image">
-                    <h2><%= cartItem.product_name %></h2>
-                    <p><%= cartItem.product_price %></p>
-                    <p>Size: <%= cartItem.product_size %></p>
-                    <div id="container">
-                      <select class="quantity-select" data-cart-id="<%= cartItem.cart_id %>">
-                        <% for (let i = 1; i <= 10; i++) { %>
-                          <option value="<%= i %>" <%= i == cartItem.product_quantity ? 'selected' : '' %>><%= i %></option>
-                        <% } %>
-                      </select>
-                    </div>
-                    <form id="removeForm<%= cartItem.cart_id %>" action="/remove_from_cart" method="POST">
-                      <input type="hidden" name="cart_id" value="<%= cartItem.cart_id %>">
-                      <button type="button" onclick="removeCartItem('<%= cartItem.cart_id %>')">Remove</button>
-                    </form>
-                  </div>
-                <% }); %>
-                <div>Total: <span id="cart-total">$<%= totalPrice.toFixed(2) %></span><br>VAT Include</div>
-                <form action="/checkout" method="POST">
-                  <button id="checkout" type="" name="checkout" style="margin-right: 500px;">CHECKOUT</button>
-                </form>
+                <% let totalPrice=0; %>
+                  <% cartItems.forEach(cartItem=> { %>
+                    <% let productPrice=parseFloat(cartItem.product_price); %>
+                      <% let productQuantity=parseInt(cartItem.product_quantity); %>
+                        <% totalPrice +=productPrice * productQuantity; %>
+                          <div class="cart-item">
+                            <img src="<%= cartItem.product_images1 %>" width="200px" height="260px" alt="Product Image">
+                            <h2>
+                              <%= cartItem.product_name %>
+                            </h2>
+                            <p>
+                              <%= cartItem.product_price %>
+                            </p>
+                            <p>Size: <%= cartItem.product_size %>
+                            </p>
+                            <div id="container">
+                              <select class="quantity-select" data-cart-id="<%= cartItem.cart_id %>">
+                                <% for (let i=1; i <=10; i++) { %>
+                                  <option value="<%= i %>" <%=i==cartItem.product_quantity ? 'selected' : '' %>><%= i %>
+                                  </option>
+                                  <% } %>
+                              </select>
+                            </div>
+                            <form id="removeForm<%= cartItem.cart_id %>" action="/remove_from_cart" method="POST">
+                              <input type="hidden" name="cart_id" value="<%= cartItem.cart_id %>">
+                              <button type="button" onclick="removeCartItem('<%= cartItem.cart_id %>')">Remove</button>
+                            </form>
+                          </div>
+                          <% }); %>
+                            <div>Total: <span id="cart-total">$<%= totalPrice.toFixed(2) %></span><br>VAT Include</div>
+                            <form action="/checkout" method="POST">
+                              <button id="checkout" type="" name="checkout"
+                                style="margin-right: 500px;">CHECKOUT</button>
+                            </form>
               </div>
             </div>
           </div>
@@ -237,25 +247,25 @@
 
     function updateNumber() {
       numberElement.textContent = number;
-      document.getElementById("productQuantity").value = number; 
+      document.getElementById("productQuantity").value = number;
     }
 
     incrementBtn.addEventListener("click", function () {
       number++;
       updateNumber();
-      updateQuantityOnServer(number); 
+      updateQuantityOnServer(number);
     });
 
     decrementBtn.addEventListener("click", function () {
       if (number > 0) {
         number--;
         updateNumber();
-        updateQuantityOnServer(number); 
+        updateQuantityOnServer(number);
       }
     });
 
     function updateQuantityOnServer(newQuantity) {
-      const cartId = numberElement.dataset.cartId; 
+      const cartId = numberElement.dataset.cartId;
       fetch("/update_quantity", {
         method: "POST",
         headers: {
@@ -282,32 +292,32 @@
     }
   });
 
-   document.addEventListener("DOMContentLoaded", function () {
-        const cartIcon = document.getElementById("cart-icon");
-        const cartDropdown = document.getElementById("cart-dropdown");
-        const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
-        const cartCount = document.getElementById("cart-count");
+  document.addEventListener("DOMContentLoaded", function () {
+    const cartIcon = document.getElementById("cart-icon");
+    const cartDropdown = document.getElementById("cart-dropdown");
+    const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
+    const cartCount = document.getElementById("cart-count");
 
-        cartIcon.addEventListener("click", function () {
-          cartDropdown.classList.toggle("active");
-        });
+    cartIcon.addEventListener("click", function () {
+      cartDropdown.classList.toggle("active");
+    });
 
-        let itemCount = number;
+    let itemCount = number;
 
-        addToCartButtons.forEach((button) => {
-          button.addEventListener("click", function () {
-            itemCount++;
-            cartCount.textContent = itemCount;
-            cartCount.style.display = "block";
-          });
-        });
-        document.addEventListener("click", function (event) {
-          const isClickInsideCart =
-            cartIcon.contains(event.target) ||
-            cartDropdown.contains(event.target);
-          if (!isClickInsideCart) {
-            cartDropdown.classList.remove("active");
-          }
-        });
+    addToCartButtons.forEach((button) => {
+      button.addEventListener("click", function () {
+        itemCount++;
+        cartCount.textContent = itemCount;
+        cartCount.style.display = "block";
       });
+    });
+    document.addEventListener("click", function (event) {
+      const isClickInsideCart =
+        cartIcon.contains(event.target) ||
+        cartDropdown.contains(event.target);
+      if (!isClickInsideCart) {
+        cartDropdown.classList.remove("active");
+      }
+    });
+  });
 </script>

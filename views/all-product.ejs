@@ -1,274 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- font google -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Anton&display=swap"
-      rel="stylesheet"
-    />
 
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-      crossorigin="anonymous"
-    />
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> -->
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- font google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet" />
 
-    <!-- Font Awesom -->
-    <script
-      src="https://kit.fontawesome.com/752c6ea0dd.js"
-      crossorigin="anonymous"
-    ></script>
-    <title>Product All</title>
-    <link rel="stylesheet" href="/CSS/style.css" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <style>
-      .wishlist-icon {
-        position: absolute;
-        top: 130px;
-        right: 170px;
-        transform: translate(-50%, -50%);
-        opacity: 1;
-        /* Set opacity to 1 to always show the icon */
-        z-index: 1;
-        /* Ensure the icon is above the image */
-        opacity: 0;
-        transition: opacity 0.3s ease;
-      }
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> -->
 
-      .carousel-item:hover .wishlist-icon {
-        opacity: 1;
-      }
+  <!-- Font Awesom -->
+  <script src="https://kit.fontawesome.com/752c6ea0dd.js" crossorigin="anonymous"></script>
+  <title>Product All</title>
+  <link rel="stylesheet" href="/CSS/style.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    .wishlist-icon {
+      position: absolute;
+      top: 130px;
+      right: 170px;
+      transform: translate(-50%, -50%);
+      opacity: 1;
+      /* Set opacity to 1 to always show the icon */
+      z-index: 1;
+      /* Ensure the icon is above the image */
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
 
-      .wishlist-icon i {
-        color: white;
-        /* Set the default color of the heart icon */
-        font-size: 30px;
-      }
+    .carousel-item:hover .wishlist-icon {
+      opacity: 1;
+    }
 
-      .wishlist-icon i.clicked {
-        color: red;
-        /* Change color to red when clicked */
-      }
+    .wishlist-icon i {
+      color: white;
+      /* Set the default color of the heart icon */
+      font-size: 30px;
+    }
 
-      .carousel-img {
-        position: relative;
-        /* Ensure the container is positioned */
-        width: 100%;
-        /* Ensure the image fills its container */
-        height: auto;
-        /* Maintain aspect ratio */
-      }
+    .wishlist-icon i.clicked {
+      color: red;
+      /* Change color to red when clicked */
+    }
 
-      .product-details {
-        position: absolute;
-        bottom: 1px;
-        transform: translateX(-47%);
-        visibility: hidden;
-        opacity: 0;
-        transition: visibility 0s, opacity 0.3s linear;
-        color: black;
-        width: 350px;
-        height: auto;
+    .carousel-img {
+      position: relative;
+      /* Ensure the container is positioned */
+      width: 100%;
+      /* Ensure the image fills its container */
+      height: auto;
+      /* Maintain aspect ratio */
+    }
+
+    .product-details {
+      position: absolute;
+      bottom: 1px;
+      transform: translateX(-47%);
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0s, opacity 0.3s linear;
+      color: black;
+      width: 350px;
+      height: auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 35px;
+    }
+
+    .product-details p {
+      font-size: 16px;
+      margin: 0;
+      line-height: 1.2;
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .left-details {
+      text-align: left;
+      flex: 1;
+      margin-right: 40px;
+    }
+
+    .right-details {
+      text-align: right;
+    }
+
+    .carousel-item:hover .product-details {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    @media (max-width: 767px) {
+      .imageBag {
         display: flex;
-        flex-direction: row;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
-        padding: 35px;
+        margin-left: 25px;
       }
+    }
+  </style>
+</head>
 
-      .product-details p {
-        font-size: 16px;
-        margin: 0;
-        line-height: 1.2;
-        flex: 1;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
+<body>
+  <%- include('partials/navbar.ejs'); %>
 
-      .left-details {
-        text-align: left;
-        flex: 1;
-        margin-right: 40px;
-      }
-
-      .right-details {
-        text-align: right;
-      }
-
-      .carousel-item:hover .product-details {
-        visibility: visible;
-        opacity: 1;
-      }
-
-      @media (max-width: 767px) {
-        .imageBag {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          margin-left: 25px;
-        }
-      }
-    </style>
-  </head>
-
-  <body>
-    <%- include('partials/navbar.ejs'); %>
-    
     <h3 style="margin-top: 50px">Product All</h3>
     <hr class="line" />
 
     <div class="container">
       <div class="row">
         <% products.forEach((product, index)=> { %>
-        <div class="col-lg-4 col-md-6 col-xs-6">
-          <!-- Bag 1 -->
-          <div id="carouselExampleControls<%= index %>" class="carousel slide">
-            <div class="carousel-inner">
-              <div
-                class="carousel-item active"
-                product_id="<%= product.product_id %>"
-              >
-                <a href="/product-detail/<%= product.product_id %>">
-                  <img
-                    class="imageBag"
-                    src="<%= product.product_images1 %>"
-                    alt="images"
-                  />
-                </a>
-                <div class="wishlist-icon">
-                  <i class="fas fa-heart"></i>
+          <div class="col-lg-4 col-md-6 col-xs-6">
+            <!-- Bag 1 -->
+            <div id="carouselExampleControls<%= index %>" class="carousel slide">
+              <div class="carousel-inner">
+                <div class="carousel-item active" product_id="<%= product.product_id %>">
+                  <a href="/product-detail/<%= product.product_id %>">
+                    <img class="imageBag" src="<%= product.product_images1 %>" alt="images" />
+                  </a>
+                  <div class="wishlist-icon">
+                    <i class="fas fa-heart"></i>
+                  </div>
+                  <div class="product_details">
+                    <p>
+                      <%= product.product_name %>
+                    </p>
+                    <p>Price: $<%= product.product_price %>
+                    </p>
+                  </div>
                 </div>
-                <div class="product_details">
-                  <p><%= product.product_name %></p>
-                  <p>Price: $<%= product.product_price %></p>
+                <div class="carousel-item" product_id="101">
+                  <a href="/product-detail/<%= product.product_id%>">
+                    <img class="imageBag" src="<%= product.product_images2 %>" />
+                  </a>
+                  <div class="wishlist-icon">
+                    <i class="fas fa-heart"></i>
+                  </div>
+                  <div class="product_details">
+                    <p>
+                      <%= product.product_name %>
+                    </p>
+                    <p>Price: $<%= product.product_price %>
+                    </p>
+                  </div>
+                </div>
+                <div class="carousel-item" product_id="101">
+                  <a href="/product-detail/<%= product.product_id%>">
+                    <img class="imageBag" src="<%= product.product_images3 %>" />
+                  </a>
+                  <div class="wishlist-icon">
+                    <i class="fas fa-heart"></i>
+                  </div>
+                  <div class="product_details">
+                    <p>
+                      <%= product.product_name %>
+                    </p>
+                    <p>Price: $<%= product.product_price %>
+                    </p>
+                  </div>
                 </div>
               </div>
-              <div class="carousel-item" product_id="101">
-                <a href="/product-detail/<%= product.product_id%>">
-                  <img class="imageBag" src="<%= product.product_images2 %>" />
-                </a>
-                <div class="wishlist-icon">
-                  <i class="fas fa-heart"></i>
-                </div>
-                <div class="product_details">
-                  <p><%= product.product_name %></p>
-                  <p>Price: $<%= product.product_price %></p>
-                </div>
-              </div>
-              <div class="carousel-item" product_id="101">
-                <a href="/product-detail/<%= product.product_id%>">
-                  <img class="imageBag" src="<%= product.product_images3 %>" />
-                </a>
-                <div class="wishlist-icon">
-                  <i class="fas fa-heart"></i>
-                </div>
-                <div class="product_details">
-                  <p><%= product.product_name %></p>
-                  <p>Price: $<%= product.product_price %></p>
-                </div>
-              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls<%= index %>"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls<%= index %>"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
             </div>
-            <button
-              class="carousel-control-prev"
-              type="button"
-              data-bs-target="#carouselExampleControls<%= index %>"
-              data-bs-slide="prev"
-            >
-              <span
-                class="carousel-control-prev-icon"
-                aria-hidden="true"
-              ></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button
-              class="carousel-control-next"
-              type="button"
-              data-bs-target="#carouselExampleControls<%= index %>"
-              data-bs-slide="next"
-            >
-              <span
-                class="carousel-control-next-icon"
-                aria-hidden="true"
-              ></span>
-              <span class="visually-hidden">Next</span>
-            </button>
           </div>
-        </div>
-        <% }); %>
+          <% }); %>
       </div>
     </div>
 
     <nav aria-label="Page navigation">
       <ul class="pagination justify-content-center mt-4">
         <% if (currentPage> 1) { %>
-        <li class="page-item">
-          <a
-            class="page-link"
-            href="/all-product?page=<%= currentPage - 1 %>"
-            aria-label="Previous"
-          >
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        <% } %> <% for (let i=1; i <=totalPages; i++) { %>
-        <li class="page-item <%= i === currentPage ? 'active' : '' %>">
-          <a class="page-link" href="/all-product?page=<%= i %>"> <%= i %> </a>
-        </li>
-        <% } %> <% if (currentPage < totalPages) { %>
-        <li class="page-item">
-          <a
-            class="page-link"
-            href="/all-product?page=<%= currentPage + 1 %>"
-            aria-label="Next"
-          >
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-        <% } %>
+          <li class="page-item">
+            <a class="page-link" href="/all-product?page=<%= currentPage - 1 %>" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <% } %>
+            <% for (let i=1; i <=totalPages; i++) { %>
+              <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+                <a class="page-link" href="/all-product?page=<%= i %>">
+                  <%= i %>
+                </a>
+              </li>
+              <% } %>
+                <% if (currentPage < totalPages) { %>
+                  <li class="page-item">
+                    <a class="page-link" href="/all-product?page=<%= currentPage + 1 %>" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                  <% } %>
       </ul>
     </nav>
 
-    <section id="intro-section">
-      <div class="container-fluid bg-gray">
-        <h4>Newsletter</h4>
-        <br />
-        <p>
-          Sign in to receive our lastest news about collection, products, shows
-          and collaborations
-        </p>
-        <div class="email-input-container">
-          <input type="email" id="email-input" placeholder="Enter your email" />
-          <button id="send-button" style="display: none">
-            <i class="fas fa-arrow-right"></i>
-          </button>
-        </div>
-      </div>
-    </section>
 
-    <%- include('partials/news-letter.ejs') %> 
-    <%- include('partials/footer') %>
-    
-    <script src="/controllers/wishlist/add-to-wishlist.js"></script>
-    <script src="/controllers/wishlist/wishlist-icon-toggle.js"></script>
-    <script src="/controllers/news/news-letter-controller.js"></script>
-    <script src="/controllers/navbar/category-dropdown-controller.js"></script>
-    <script src="/controllers/navbar/navbar-toggle-controller.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-      
-    </script>
-  </body>
+    <%- include('partials/news-letter.ejs') %>
+      <%- include('partials/footer') %>
+
+        <script src="/controllers/wishlist/add-to-wishlist.js"></script>
+        <script src="/controllers/wishlist/wishlist-icon-toggle.js"></script>
+        <script src="/controllers/news/news-letter-controller.js"></script>
+        <script src="/controllers/navbar/category-dropdown-controller.js"></script>
+        <script src="/controllers/navbar/navbar-toggle-controller.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        </script>
+</body>
+
 </html>

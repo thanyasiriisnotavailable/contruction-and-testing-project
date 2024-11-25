@@ -371,7 +371,12 @@ app.get('/profile', (req, res) => {
        ORDER BY l.created_at DESC
        LIMIT 1
    `;
-   connection.query(sql, (err, results) => {
+   const cartItems = `
+   SELECT p.product_images1, p.product_name, p.product_price, c.product_quantity,c.product_name, c.product_price, c.cart_id, c.product_size, p.product_id
+   FROM product AS p
+   INNER JOIN cart AS c ON p.product_name = c.product_name`; 
+
+   connection.query(sql, (err, results, cartItems) => {
        if (err) {
            console.error('Error fetching user profile data:', err);
            return res.status(500).json({ error: 'Something went wrong' });
@@ -379,7 +384,7 @@ app.get('/profile', (req, res) => {
   
        if (results.length === 1) {
            const user = results[0];
-           res.render('profile', { user });
+           res.render('profile', { user, cartItems });
        } else {
            res.status(404).send('User not found');
        }
