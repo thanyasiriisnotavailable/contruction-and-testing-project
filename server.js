@@ -17,10 +17,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'Patty.27092003',
-    database: 'project_323'
+    password: 'suparuthong555',
+    database: 'clothshop'
   });
-  
+
 connection.connect((err) => {
     if (err) {
         console.error('Error connecting to MySQL database:', err);
@@ -110,66 +110,6 @@ app.post('/failure', (req, res) => {
     res.redirect('/');
 });
 
- 
-app.get('/Bag', (req, res) => {
-    const sql = 'SELECT * FROM product WHERE category_id = 1';
-
-    connection.query(sql, (err, results) => {
-        if (err) {
-            console.error('Error fetching product data:', err);
-            return res.status(500).json({ error: 'Something went wrong' });
-        }
-        results.forEach(product => {
-            product.product_price = parseFloat(product.product_price); 
-        });
-        res.render('Category/Bag', { products: results });
-    });
-});
-
-app.get('/Top', (req, res) => {
-    const sql = 'SELECT * FROM product WHERE category_id = 2';
-
-    connection.query(sql, (err, results) => {
-        if (err) {
-            console.error('Error fetching product data:', err);
-            return res.status(500).json({ error: 'Something went wrong' });
-        }
-        results.forEach(product => {
-            product.product_price = parseFloat(product.product_price); 
-        });
-        res.render('Category/Top', { products: results });
-    });
-});
-
-app.get('/Shoes', (req, res) => {
-    const sql = 'SELECT * FROM product WHERE category_id = 3';
-
-    connection.query(sql, (err, results) => {
-        if (err) {
-            console.error('Error fetching product data:', err);
-            return res.status(500).json({ error: 'Something went wrong' });
-        }
-        results.forEach(product => {
-            product.product_price = parseFloat(product.product_price); 
-        });
-        res.render('Category/Shoes', { products: results });
-    });
-});
-
-app.get('/Trousersnshorts', (req, res) => {
-    const sql = 'SELECT * FROM product WHERE category_id = 4';
-
-    connection.query(sql, (err, results) => {
-        if (err) {
-            console.error('Error fetching product data:', err);
-            return res.status(500).json({ error: 'Something went wrong' });
-        }
-        results.forEach(product => {
-            product.product_price = parseFloat(product.product_price); 
-        });
-        res.render('Category/Trousersnshorts', { products: results });
-    });
-});
 
 app.get('/wishlist', (req, res) => {
     const removeDuplicatesSQL = `
@@ -185,19 +125,26 @@ app.get('/wishlist', (req, res) => {
             ) AS temp
         )
     `;
+
      connection.query(removeDuplicatesSQL, (err, _) => {
         if (err) {
             console.error('Error removing duplicate entries from wishlist table:', err);
             return res.status(500).json({ error: 'Something went wrong' });
         }
         
-         const fetchWishlistSQL = `
+        const cartItems = `
+        SELECT p.product_images1, p.product_name, p.product_price, c.product_quantity,c.product_name, c.product_price, c.cart_id, c.product_size, p.product_id
+        FROM product AS p
+        INNER JOIN cart AS c ON p.product_name = c.product_name`; 
+
+        const fetchWishlistSQL = `
             SELECT w.product_id, p.product_name, p.product_images1, p.product_price 
             FROM wishlist w 
             JOIN product p ON w.product_id = p.product_id
         `;
+
         
-         connection.query(fetchWishlistSQL, (err, results) => {
+         connection.query(fetchWishlistSQL, (err, results, cartItems) => {
             if (err) {
                 console.error('Error fetching wishlist items:', err);
                 return res.status(500).json({ error: 'Something went wrong' });
@@ -207,7 +154,7 @@ app.get('/wishlist', (req, res) => {
                 product.product_price = parseFloat(product.product_price); 
             });
             
-              res.render('wishlist', { wishlistItems: results });
+              res.render('wishlist', { wishlistItems: results, cartItems });
         });
     });
 });
@@ -216,9 +163,8 @@ function calculateTotalPages(totalProducts, productsPerPage) {
     return Math.ceil(totalProducts / productsPerPage);
 }
  
-
-app.get('/productall', (req, res) => {
-    const sql = 'SELECT COUNT(*) AS totalProducts FROM product'; // Query to get the total number of products
+app.get('/all-product', (req, res) => {
+    const sql = 'SELECT COUNT(*) AS totalProducts FROM product';
     connection.query(sql, (err, results) => {
         if (err) {
             console.error('Error fetching product count:', err);
@@ -233,7 +179,12 @@ app.get('/productall', (req, res) => {
         const limit = productsPerPage;
  
         const productQuery = `SELECT * FROM product LIMIT ${limit} OFFSET ${offset}`;
-        connection.query(productQuery, (err, products) => {
+        const cartItems = `
+        SELECT p.product_images1, p.product_name, p.product_price, c.product_quantity,c.product_name, c.product_price, c.cart_id, c.product_size, p.product_id
+        FROM product AS p
+        INNER JOIN cart AS c ON p.product_name = c.product_name`; 
+
+        connection.query(productQuery, (err, products, cartItems) => {
             if (err) {
                 console.error('Error fetching product data:', err);
                 return res.status(500).json({ error: 'Something went wrong' });
@@ -241,7 +192,13 @@ app.get('/productall', (req, res) => {
             products.forEach(product => {
                 product.product_price = parseFloat(product.product_price);
             });
-            res.render('allOfProduct', { products, currentPage, totalPages });
+
+            res.render('all-product', {
+                products,
+                currentPage,
+                totalPages,
+                cartItems,
+            });
         });
     });
 });
@@ -249,7 +206,7 @@ app.get('/productall', (req, res) => {
 
 
 
-app.get('/product_detail/:productId', (req, res) => {
+app.get('/product-detail/:productId', (req, res) => {
     const productId = req.params.productId;
     const sql = 'SELECT * FROM product WHERE product_id = ?';
     connection.query(sql, [productId], (err, results) => {
@@ -271,10 +228,9 @@ app.get('/product_detail/:productId', (req, res) => {
                 console.error('Error fetching cart items:', err);
                 return res.status(500).json({ error: 'Something went wrong' });
             }
-        
-            
 
-            res.render('product_detail', { product: results[0], cartItems });
+            res.render('product-detail', { product: results[0], cartItems });
+            
         });
     });
 });
@@ -310,7 +266,7 @@ connection.query(sqlInsertCart, [cart_id, product_name, product_size, product_qu
             console.log('Product added to cart successfully');
             
             // Redirect back to the product detail page after adding the product to the cart
-            res.redirect(`/product_detail/${productId}`);
+            res.redirect(`/product-detail/${productId}`);
         });
     });
 });
@@ -350,7 +306,7 @@ app.post('/remove_from_cart', (req, res) => {
                 }
                 console.log('Product deleted successfully from cart');
 
-                res.redirect(`/product_detail/${productId}`);
+                res.redirect(`/product-detail/${productId}`);
             });
         });
     });
@@ -485,8 +441,6 @@ app.post('/checkout', (req, res) => {
     });
 });
 
-
-
   app.get('/categories', (req, res) => {
     const fetchCategoriesSQL = 'SELECT * FROM category';
     connection.query(fetchCategoriesSQL, (err, results) => {
@@ -498,7 +452,8 @@ app.post('/checkout', (req, res) => {
     });
 });
   
-app.get('/default_category_layout', (req, res) => {
+
+app.get('/category-page-layout', (req, res) => {
     const categoryId = req.query.category_id;
     const categoryName = req.query.category_name;
 
@@ -507,8 +462,12 @@ app.get('/default_category_layout', (req, res) => {
     }
 
     const sql = `SELECT * FROM product WHERE category_id = ?`;
+    const cartSql = `
+    SELECT p.product_images1, p.product_name, p.product_price, c.product_quantity,c.product_name, c.product_price, c.cart_id, c.product_size, p.product_id
+    FROM product AS p
+    INNER JOIN cart AS c ON p.product_name = c.product_name`; 
 
-    connection.query(sql, [categoryId], (err, results) => {
+    connection.query(sql, [categoryId], (err, results, cartItems) => {
         if (err) {
             console.error('Error fetching product data:', err);
             return res.status(500).json({ error: 'Something went wrong' });
@@ -517,13 +476,16 @@ app.get('/default_category_layout', (req, res) => {
         results.forEach(product => {
             product.product_price = parseFloat(product.product_price);
         });
-           res.render('default_category_layout', {
+
+        res.render('category-page-layout', {
             category_id: categoryId,
             category_name: categoryName,
-            products: results
+            products: results,
+            cartItems: cartItems 
         });
     });
 });
+
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/html/Homepage.html');

@@ -36,6 +36,7 @@
     </style>
 </head>
 <body>
+    <%- include('partials/navbar'); %>
     <h1>Products</h1>
     <div id="product-list">
         <% products.forEach(product => { %>
@@ -50,73 +51,11 @@
             </div>
         <% }); %>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const wishlistIcons = document.querySelectorAll('.wishlist-icon');
-     
-            wishlistIcons.forEach(icon => {
-                icon.addEventListener('click', function() {
-                    // Toggle the 'clicked' class on the heart icon
-                    const productId = this.parentElement.getAttribute('product_id');
-                    
-                    // Make an AJAX request to add the product to the wishlist
-                    fetch('/addwishlist', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ productId: productId })
-                    })
-                    .then(response => {
-                        if (response.ok) {
-                            // Handle success response if needed
-                            console.log('Product added to wishlist successfully');
-                        } else {
-                            // Handle error response if needed
-                            console.error('Failed to add product to wishlist');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
-                
-                });
-            });
-        });
-        document.addEventListener('DOMContentLoaded', function() {
-      fetch('/categories')
-      .then(response => response.json())
-      .then(categories => {
-          const categoryDropdown = document.getElementById('categoryDropdown');
-          categories.forEach(category => {
-              const categoryItem = document.createElement('li');
-              let categoryHTML = ''; // Define categoryHTML here
-              if (category.category_name === 'trousers & shorts' || category.category_name === 'bag' || category.category_name === 'top' || category.category_name === 'shoes') {
-                  // Construct the HTML string for each category item
-                  if (category.category_name === 'top') {
-                      categoryHTML = `<a class="dropdown-item" href="/Top">Top</a>`;
-                  } else if (category.category_name === 'trousers & shorts') {
-                      categoryHTML = `<a class="dropdown-item" href="/Trousersnshorts">Trousers and Shorts</a>`;
-                  } else if (category.category_name === 'bag') {
-                      categoryHTML = `<a class="dropdown-item" href="/Bag">Bag</a>`;
-                  } else if (category.category_name === 'shoes') {
-                      categoryHTML = `<a class="dropdown-item" href="/Shoes">Shoes</a>`;
-                  }
-                  categoryItem.innerHTML = categoryHTML; 
-              } else {
-                  categoryItem.innerHTML = `<a class="dropdown-item" href="/default_category_layout?category_id=${category.category_id}&category_name=${category.category_name}">${category.category_name}</a>`;
-              }
-              categoryDropdown.appendChild(categoryItem); 
-          });
-  
-          const viewAllCategoryItem = document.createElement('li');
-          viewAllCategoryItem.innerHTML = `<a class="dropdown-item" href="/productall">View all</a>`;
-          categoryDropdown.appendChild(viewAllCategoryItem);
-      })
-      .catch(error => console.error('Error fetching categories:', error));
-  });
-  
-    </script>
+   
+    <script src="/controllers/wishlist/add-to-wishlist.js"></script>
+    <script src="/controllers/navbar/category-dropdown-controller.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+      
 </body>
 </html>
 

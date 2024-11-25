@@ -5,32 +5,12 @@ document.addEventListener("DOMContentLoaded", function () {
       const categoryDropdown = document.getElementById("categoryDropdown");
       categories.forEach((category) => {
         const categoryItem = document.createElement("li");
-        let categoryHTML = ""; // Define categoryHTML here
-        if (
-          category.category_name === "trousers & shorts" ||
-          category.category_name === "bag" ||
-          category.category_name === "top" ||
-          category.category_name === "shoes"
-        ) {
-          // Construct the HTML string for each category item
-          if (category.category_name === "top") {
-            categoryHTML = `<a class="dropdown-item" href="/Top">Top</a>`;
-          } else if (category.category_name === "trousers & shorts") {
-            categoryHTML = `<a class="dropdown-item" href="/Trousersnshorts">Trousers and Shorts</a>`;
-          } else if (category.category_name === "bag") {
-            categoryHTML = `<a class="dropdown-item" href="/Bag">Bag</a>`;
-          } else if (category.category_name === "shoes") {
-            categoryHTML = `<a class="dropdown-item" href="/Shoes">Shoes</a>`;
-          }
-          categoryItem.innerHTML = categoryHTML;
-        } else {
-          categoryItem.innerHTML = `<a class="dropdown-item" href="/default_category_layout?category_id=${category.category_id}&category_name=${category.category_name}">${category.category_name}</a>`;
-        }
+        categoryItem.innerHTML = `<a class="dropdown-item" href="/category-page-layout?category_id=${
+        category.category_id}&category_name=${category.category_name}">${category.category_name}</a>`;
         categoryDropdown.appendChild(categoryItem);
       });
-
       const viewAllCategoryItem = document.createElement("li");
-      viewAllCategoryItem.innerHTML = `<a class="dropdown-item" href="/productall">View all</a>`;
+      viewAllCategoryItem.innerHTML = `<a class="dropdown-item" href="/all-product">View all</a>`;
       categoryDropdown.appendChild(viewAllCategoryItem);
     })
     .catch((error) => console.error("Error fetching categories:", error));
