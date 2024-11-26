@@ -8,7 +8,6 @@ router.post('/addwishlist', async (req, res) => {
     try {
         const userWishlist = await WishDB.getUserWishlist(req.session.userId);
 
-        // Add the product details to the wishlist
         userWishlist.push({
             productId: productId,
             productName: productName,
@@ -16,7 +15,6 @@ router.post('/addwishlist', async (req, res) => {
             productImage: productImage
         });
 
-        // Save the updated wishlist
         await WishDB.updateUserWishlist(req.session.userId, userWishlist);
 
         res.send("Wishlist updated successfully");
