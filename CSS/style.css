@@ -990,7 +990,6 @@ iframe{
 }
 
 
-/* hello test */
 #cart-count {
     position: absolute;
     top: -5px;
@@ -1004,9 +1003,74 @@ iframe{
 }
 
 
+/* Register */
+.center-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10px;
+    gap: 120px
+}
 
-  
+.text-container p {
+    display: inline;
+    margin-right: 20px;
+    text-decoration: none;
+    padding: 50px;
+    text-align: left;
 
+}
+
+.text-container a {
+    display: inline;
+    margin-right: 20px;
+    color: black;
+    text-decoration: none;
+    margin-left: 60px;
+    text-align: right;
+
+}
+
+.text-container {
+    gap: 100px;
+}
+
+form input {
+    margin-top: 50px;
+}
+
+form button {
+    margin-right: 120px;
+}
+
+/* OurStore */
+.infoshop .map-container {
+    width: 100%;
+    height: 530px;
+    display: flex;
+    justify-content: center;
+}
+.infoshop #map {
+    width: 50%; 
+    height: 100%;
+}
+ 
+.infoshop h5{
+    text-align: center;
+    margin-top: 60px;
+}
+ 
+.infoshop hr{
+    margin-top: 10px;
+}
+ 
+.infoshop ul{
+    list-style-type: none;
+    margin-top: 20px;
+    font-size: 20px;
+    margin-right: 40px;
+    text-align: center;
+}
 
   
   

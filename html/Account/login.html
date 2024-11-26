@@ -20,6 +20,7 @@
  
  
     <style>
+        /* Mobile View */
         @media (max-width: 767px) {
             .container {
                 padding: 10px;
@@ -28,7 +29,7 @@
                 align-items: center;
             }
             .contactus h3 {
-                font-size: 20px; /* Reduced font size for h3 on mobile */
+                font-size: 20px; 
             }
         
             .account-section p {
@@ -70,48 +71,46 @@
             }
             
             .form-footer {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 20px;
-        text-align: right;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-top: 20px;
+                text-align: right;
+            }
+ 
+            .form-footer button {
+                margin-top: auto;
+                margin-bottom: 30px;
+            }
+ 
+            .form-footer a {
+                margin-top: auto;
+                font-size: 16px
+            }
+            #footer {
+                text-align: center;
+            }
+ 
+            #footer .container-fluid {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+ 
+            #footer .container-fluid ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 5px;
+            }
+ 
+            #footer .conpyright li{
+                font-size: 14px;
+                margin-top: 20px;
+            }
     }
- 
-    .form-footer button {
-        margin-top: auto;
-        margin-bottom: 30px;
-    }
- 
-    .form-footer a {
-        margin-top: auto;
-        font-size: 16px
-    }
-    #footer {
-    text-align: center;
-}
- 
-#footer .container-fluid {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
- 
-#footer .container-fluid ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 5px;
-}
- 
-#footer .conpyright li{
-    font-size: 14px;
-    margin-top: 20px;
-}
- 
-        }
         
-            </style>
-</head>
- 
+        </style>
+    </head>
 <body>
  
  
@@ -136,11 +135,11 @@
                 </li>
  
                 <li class="nav-item">
-                    <a class="nav-link" href="/html/ContactUs/contactus.html">contact us</a>
+                    <a class="nav-link" href="/html/ContactUs/ContactUs.html">contact us</a>
                 </li>
  
                 <li class="nav-item">
-                    <a class="nav-link" href="/html/Account/login.html">account</a>
+                    <a class="nav-link" href="/html/Account/Login.html">account</a>
                 </li>
        
                 <li class="nav-item">
@@ -171,7 +170,7 @@
         <div><input type="text" id="email" name="email" placeholder="Email"></div>
         <div><input type="password" id="password" name="password" oninput="hidePassword(this)" oninput="showLastChar(this)" onfocus="this.removeAttribute('readonly')" placeholder="Password"></div>
         <div class="form-footer">
-            <div><a href="/html/Account/register.html">Don't have an account yet? Sign up here</a></div>
+            <div><a href="/html/Account/Register.html">Don't have an account yet? Sign up here</a></div>
             <button  class="btn btn-primary" style="background-color: #0C254A">LOGIN</button>
         </div>
     </form>
@@ -204,11 +203,11 @@
             <li><a class="nav-link" href="/html/Product/productall.html">product</a></li>
             
             <li>
-                <a class="nav-link" href="/html/ContactUs/contactus.html">contact us</a>
+                <a class="nav-link" href="/html/ContactUs/ContactUs.html">contact us</a>
             </li>
  
             <li>
-                <a class="nav-link" href="/html/Account/login.html">account</a>
+                <a class="nav-link" href="/html/Account/Login.html">account</a>
             </li>
             </ul>
         </div>

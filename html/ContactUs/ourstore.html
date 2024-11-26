@@ -19,135 +19,101 @@
     <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css"/>
  
  
-    <style>
-  
+<style>
+    /* Mobile View */
+    @media (max-width: 767px) {
+        .infoshop .map{
+            width: 100%; 
+            height: 100%; 
+        }
  
-.infoshop .map-container {
-    width: 100%;
-    height: 530px;
-    display: flex;
-    justify-content: center;
-}
-.infoshop #map {
-    width: 50%; /* Adjust the width as needed */
-    height: 100%; /* Adjust the height as needed */
-}
+        .infoshop p{
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            text-align: left;
+        }
  
+        .btn-locate {
+            margin-top: 20px; 
+        }
  
+        .container {
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .contactus h3 {
+            font-size: 20px;
+        }
+        
+        .contactus p {
+            font-size: 16px;
+        }
+        
+        .center-links a {
+            font-size: 16px;
+        }
+ 
+        .infoshop p{
+            font-size: 16px;
+            text-align: left;
+            margin-left: 40px;
+        }
+ 
+        .infoshop .btn-locate button, .infoshop .btn-locate a {
+            width: 200px;
+            font-size: 16px;
+        }
+ 
+        .infoshop .btn-locate a {
+            font-size: 10px;
+        }
+            
+        .infoshop ul{
+            list-style-type: none;
+            margin-top: 20px;
+            font-size: 14px;
+            margin-left: 60px;
+        }
  
         .infoshop h5{
-            text-align: center;
-            margin-top: 60px;
+            text-align: left;
+            margin-top: 50px;
+            margin-left: 100px;
         }
  
         .infoshop hr{
             margin-top: 10px;
         }
- 
-        .infoshop ul{
-                list-style-type: none;
-                margin-top: 20px;
-                font-size: 20px;
-                margin-right: 40px;
-                text-align: center;
-            }
- 
-        @media (max-width: 767px) {
- 
-            .infoshop .map{
-        width: 100%; /* Set the width to fill the container */
-        height: 100%; /* Adjust height as needed */
-    }
- 
-    .infoshop p{
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 14px;
-        text-align: left;
-    }
- 
-    .btn-locate {
-        margin-top: 20px; /* Adjust margin as needed */
-    }
- 
-            .container {
-                padding: 10px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-            .contactus h3 {
-                font-size: 20px;
-            }
-        
-            .contactus p {
-                font-size: 16px;
-            }
-        
-            .center-links a {
-                font-size: 16px;
-            }
- 
-            .infoshop p{
-                font-size: 16px;
-                text-align: left;
-                margin-left: 40px;
-            }
- 
-            .infoshop .btn-locate button, .infoshop .btn-locate a {
-                width: 200px;
-                font-size: 16px;
-            }
- 
-            .infoshop .btn-locate a {
-                 font-size: 10px;
-            }
-            .infoshop ul{
-                list-style-type: none;
-                margin-top: 20px;
-                font-size: 14px;
-                margin-left: 60px;
-            }
- 
-            .infoshop h5{
-                text-align: left;
-                margin-top: 50px;
-                /* margin-left: 55px; */
-                margin-left: 100px;
-            }
- 
-            .infoshop hr{
-                margin-top: 10px;
-            }
-            #footer {
-    text-align: center;
-}
- 
-#footer .container-fluid {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
- 
-#footer .container-fluid ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 5px;
-}
- 
-#footer .conpyright li{
-    font-size: 14px;
-    margin-top: 20px;
-}
- 
- 
+            
+        #footer {
+            text-align: center;
         }
-        
-            </style>
  
-</head>
+        #footer .container-fluid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+ 
+        #footer .container-fluid ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 5px;
+        }
+ 
+        #footer .conpyright li{
+            font-size: 14px;
+            margin-top: 20px;
+        }
+    }
+        
+        </style>
+    </head>
 <body>
     
    <!-- Navbar with cart and wishlist -->
@@ -171,11 +137,11 @@
             </li>
  
             <li class="nav-item">
-                <a class="nav-link" href="/html/ContactUs/contactus.html">contact us</a>
+                <a class="nav-link" href="/html/ContactUs/ContactUs.html">contact us</a>
             </li>
  
             <li class="nav-item">
-                <a class="nav-link" href="/html/Account/login.html">account</a>
+                <a class="nav-link" href="/html/Account/Login.html">account</a>
             </li>
    
             <li class="nav-item">
@@ -203,9 +169,9 @@
     <br>
     </div>
     <div class="center-links">
-        <a href="/html/ContactUs/contactus1.html">contact us</a>
+        <a href="/html/ContactUs/ContactForm.html">contact us</a>
         <br>
-        <a href="/html/ContactUs/ourstore.html">our store</a>
+        <a href="/html/ContactUs/OurStore.html">our store</a>
     </div>
     <div class = "infoshop">
         <h5>La Boutique Montaigne</h5>
@@ -214,8 +180,6 @@
         <div class="map-container">
         <div id="map"></div>
     </div>
-    <!-- <h4>La Boutique Montaigne</h4> -->
-    <!-- <hr class="line"> -->
     
     <ul>
         <li>58 av. Montaigne, 75008 Paris</li>
@@ -255,11 +219,11 @@
             <li><a class="nav-link" href="/html/Product/productall.html">product</a></li>
             
             <li>
-                <a class="nav-link" href="/html/ContactUs/contactus.html">contact us</a>
+                <a class="nav-link" href="/html/ContactUs/ContactUs.html">contact us</a>
             </li>
  
             <li>
-                <a class="nav-link" href="/html/Account/login.html">account</a>
+                <a class="nav-link" href="/html/Account/Login.html">account</a>
             </li>
             </ul>
         </div>
@@ -325,7 +289,7 @@ sendButton.style.display = 'none';
         L.mapquest.key = 'yrjrgjUNKDj6MQrO4wYojLKs3KUfl2xB';
  
         var map = L.mapquest.map('map', {
-            center: [48.868242, 2.308989], // Paris coordinates
+            center: [48.868242, 2.308989], 
             layers: L.mapquest.tileLayer('map'),
             zoom: 12
         });
