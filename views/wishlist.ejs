@@ -99,83 +99,19 @@
 
     <%- include('partials/news-letter') %>
     <%- include('partials/footer') %>
-    <script src="/controllers/news/news-letter-controller.js"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-      crossorigin="anonymous"
-    ></script>
-
-    <script>
-      const express = require("express");
-      const router = express.Router();
-      const { updateWishlist } = require("../controllers/wishlistController");
-
-      // Route to handle adding a product to the wishlist
-      router.post("/addwishlist", async (req, res) => {
-        const productId = req.body.productId;
-
-        // Call the updateWishlist function to add the product to the wishlist
-        const result = await updateWishlist(req, [productId]);
-
-        // Redirect to the wishlist page
-        res.redirect("/wishlist");
-      });
-
-      module.exports = router;
-    </script>
-
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        // Retrieve product details from local storage
-        const productDetailsString = localStorage.getItem("wishlistProduct");
-        if (productDetailsString) {
-          const productDetails = JSON.parse(productDetailsString);
-
-          // Display product details on the page
-          const wishlistContainer =
-            document.getElementById("wishlist-container");
-
-          // Create a card to display the product
-          const card = document.createElement("div");
-          card.classList.add("col-md-4");
-
-          // Create an image element
-          const img = document.createElement("img");
-          img.src = `/image/imageBag/${productDetails.productId}.jpg`;
-          img.alt = "Product Image";
-          img.classList.add("img-fluid");
-          card.appendChild(img);
-
-          // Create a card body
-          const cardBody = document.createElement("div");
-          cardBody.classList.add("card-body");
-
-          // Add product name to card body
-          const productName = document.createElement("h5");
-          productName.classList.add("card-title");
-          productName.textContent = productDetails.name;
-          cardBody.appendChild(productName);
-
-          // Add product price to card body
-          const productPrice = document.createElement("p");
-          productPrice.classList.add("card-text");
-          productPrice.textContent = `Price: ${productDetails.price}`;
-          cardBody.appendChild(productPrice);
-
-          card.appendChild(cardBody);
-
-          // Append card to wishlist container
-          wishlistContainer.appendChild(card);
-        }
-      });
-    </script>
-
+  
     <script>
       // Get wishlist items from database
       const wishlistItems = await WishlistModel.find({
         userId: req.session.userId,
       });
     </script>
+    <script src="/controllers/wishlist/display-wishlist.js"></script>
+    <script src="/controllers/wishlist/wishlist-controller.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

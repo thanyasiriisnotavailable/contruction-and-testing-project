@@ -1,61 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Products</title>
     <style>
-    
-        .wishlist-icon {
-            position: absolute;
-            top: 130px;
-            left: 350px;
-            transform: translate(-50%, -50%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 1; /* Ensure the icon is above the image */
-        }
-    
-        .carousel-item:hover .wishlist-icon {
-            opacity: 1;
-        }
-    
-        .wishlist-icon i {
-            color: white; /* Set the default color of the heart icon */
-            font-size: 30px;
-        }
-    
-        .wishlist-icon i.clicked {
-            color: red; /* Change color to red when clicked */
-        }
-    
-        .carousel-img {
-            width: 100%; /* Ensure the image fills its container */
-            height: auto; /* Maintain aspect ratio */
-        }
+      .wishlist-icon {
+        position: absolute;
+        top: 130px;
+        left: 350px;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: 1; /* Ensure the icon is above the image */
+      }
+
+      .carousel-item:hover .wishlist-icon {
+        opacity: 1;
+      }
+
+      .wishlist-icon i {
+        color: white; /* Set the default color of the heart icon */
+        font-size: 30px;
+      }
+
+      .wishlist-icon i.clicked {
+        color: red; /* Change color to red when clicked */
+      }
+
+      .carousel-img {
+        width: 100%; /* Ensure the image fills its container */
+        height: auto; /* Maintain aspect ratio */
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <%- include('partials/navbar'); %>
+    
     <h1>Products</h1>
     <div id="product-list">
-        <% products.forEach(product => { %>
-            <div class="product-item" product_id="<%= product.product_id %>">
-                <h2><%= product.product_name %></h2>
-                <p>Description: <%= product.description %></p>
-                <p>Price: $<%= product.price %></p>
-                <div class="wishlist-icon">
-                    <i class="fas fa-heart"></i>
-                </div>
-                <button class="wishlist-btn">Add to Wishlist</button>
-            </div>
-        <% }); %>
+      <% products.forEach(product => { %>
+      <div class="product-item" product_id="<%= product.product_id %>">
+        <h2><%= product.product_name %></h2>
+        <p>Description: <%= product.description %></p>
+        <p>Price: $<%= product.price %></p>
+        <div class="wishlist-icon">
+          <i class="fas fa-heart"></i>
+        </div>
+        <button class="wishlist-btn">Add to Wishlist</button>
+      </div>
+      <% }); %>
     </div>
-   
-    <script src="/controllers/wishlist/add-to-wishlist.js"></script>
-    <script src="/controllers/navbar/category-dropdown-controller.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-      
-</body>
-</html>
 
+    <script src="/controllers/wishlist/add-to-wishlist.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
