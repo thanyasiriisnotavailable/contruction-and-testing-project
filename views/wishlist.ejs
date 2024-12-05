@@ -92,6 +92,7 @@
 </head>
 
 <body>
+  <!-- Navbar with cart and wishlist -->
   <%- include('partials/navbar.ejs'); %>
 
     <h3>My Wistlist</h3>
@@ -114,28 +115,8 @@
         <% }); %>
     </div>
 
-    <section id="intro-section">
-      <form action="/sub" method="post">
-        <div class="container-fluid bg-gray">
-          <h4>Newsletter</h4>
-          <br />
-          <p>
-            Sign in to receive our lastest news about collection, products,
-            shows and collaborations
-          </p>
-          <div class="email-input-container">
-            <input type="email" name="email" id="email-input" placeholder="Enter your email" />
-            <button id="send-button" style="display: none">
-              <i class="fas fa-arrow-right"></i>
-            </button>
-          </div>
-        </div>
-      </form>
-    </section>
-
     <%- include('partials/news-letter.ejs') %>
-      <%- include('partials/footer') %>
-
+    <%- include('partials/footer') %>
 
         <script src="/controllers/news/news-letter-controller.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
