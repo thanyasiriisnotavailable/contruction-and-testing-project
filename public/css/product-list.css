@@ -1,0 +1,92 @@
+.wishlist-icon {
+  position: absolute;
+  top: 130px;
+  right: 170px;
+  transform: translate(-50%, -50%);
+  opacity: 1;
+  /* Set opacity to 1 to always show the icon */
+  z-index: 1;
+  /* Ensure the icon is above the image */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.carousel-item:hover .wishlist-icon {
+  opacity: 1;
+}
+
+.wishlist-icon i {
+  color: white;
+  /* Set the default color of the heart icon */
+  font-size: 30px;
+}
+
+.wishlist-icon i.clicked {
+  color: red;
+  /* Change color to red when clicked */
+}
+
+.carousel-img {
+  position: relative;
+  /* Ensure the container is positioned */
+  width: 100%;
+  /* Ensure the image fills its container */
+  height: auto;
+  /* Maintain aspect ratio */
+}
+
+.product-details {
+  position: absolute;
+  bottom: 1px;
+  transform: translateX(-47%);
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.3s linear;
+  color: black;
+  width: 350px;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 35px;
+}
+
+.product-details p {
+  font-size: 16px;
+  margin: 0;
+  line-height: 1.2;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.left-details {
+  text-align: left;
+  flex: 1;
+  margin-right: 40px;
+}
+
+.right-details {
+  text-align: right;
+}
+
+.carousel-item:hover .product-details {
+  visibility: visible;
+  opacity: 1;
+}
+
+@media (max-width: 767px) {
+  .image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 25px;
+  }
+
+  .wishlist-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
