@@ -17,8 +17,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'Patty.27092003',
-    database: 'project_323'
+    password: 'suparuthong555',
+    database: 'clothshop'
   });
 
 connection.connect((err) => {
@@ -44,16 +44,7 @@ const products = [
 // Serve static files
 app.use(express.static(__dirname));
  
-// Homepage route
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + "/html/Homepage.html");
-});
- 
-// Login/register route
-app.post('/', (req, res) => {
-    // Your login/register logic using Axios
-});
- 
+
 // Products route
 app.get('/products', (req, res) => {
     res.render('product.ejs', { products: products });
@@ -126,14 +117,14 @@ app.get('/wishlist', (req, res) => {
         )
     `;
 
-     connection.query(removeDuplicatesSQL, (err, _) => {
+    connection.query(removeDuplicatesSQL, (err) => {
         if (err) {
             console.error('Error removing duplicate entries from wishlist table:', err);
             return res.status(500).json({ error: 'Something went wrong' });
         }
-        
-        const cartItems = `
-        SELECT p.product_images1, p.product_name, p.product_price, c.product_quantity,c.product_name, c.product_price, c.cart_id, c.product_size, p.product_id
+
+        const cartSql = `
+        SELECT p.product_images1, p.product_name, p.product_price, c.product_quantity, c.product_name, c.product_price, c.cart_id, c.product_size, p.product_id
         FROM product AS p
         INNER JOIN cart AS c ON p.product_name = c.product_name`; 
 
@@ -143,21 +134,31 @@ app.get('/wishlist', (req, res) => {
             JOIN product p ON w.product_id = p.product_id
         `;
 
-        
-         connection.query(fetchWishlistSQL, (err, results, cartItems) => {
+        // First fetch the wishlist items
+        connection.query(fetchWishlistSQL, (err, results) => {
             if (err) {
                 console.error('Error fetching wishlist items:', err);
                 return res.status(500).json({ error: 'Something went wrong' });
             }
-            
+
             results.forEach(product => {
                 product.product_price = parseFloat(product.product_price); 
             });
-            
-              res.render('wishlist', { wishlistItems: results, cartItems });
+
+            // After that, fetch the cart items
+            connection.query(cartSql, (err, cartItems) => {
+                if (err) {
+                    console.error('Error fetching cart items:', err);
+                    return res.status(500).json({ error: 'Something went wrong' });
+                }
+
+                // Render the wishlist view with both wishlistItems and cartItems
+                res.render('wishlist', { wishlistItems: results, cartItems });
+            });
         });
     });
 });
+
 
 function calculateTotalPages(totalProducts, productsPerPage) {
     return Math.ceil(totalProducts / productsPerPage);
@@ -371,25 +372,34 @@ app.get('/profile', (req, res) => {
        ORDER BY l.created_at DESC
        LIMIT 1
    `;
-   const cartItems = `
-   SELECT p.product_images1, p.product_name, p.product_price, c.product_quantity,c.product_name, c.product_price, c.cart_id, c.product_size, p.product_id
+   const cartSql = `
+   SELECT p.product_images1, p.product_name, p.product_price, c.product_quantity, c.product_name, c.product_price, c.cart_id, c.product_size, p.product_id
    FROM product AS p
    INNER JOIN cart AS c ON p.product_name = c.product_name`; 
 
-   connection.query(sql, (err, results, cartItems) => {
+   connection.query(sql, (err, results) => {
        if (err) {
            console.error('Error fetching user profile data:', err);
            return res.status(500).json({ error: 'Something went wrong' });
        }
-  
+
        if (results.length === 1) {
            const user = results[0];
-           res.render('profile', { user, cartItems });
+
+           connection.query(cartSql, (err, cartItems) => {
+               if (err) {
+                   console.error('Error fetching cart items:', err);
+                   return res.status(500).json({ error: 'Something went wrong' });
+               }
+
+               res.render('profile', { user, cartItems });
+           });
        } else {
            res.status(404).send('User not found');
        }
    });
-  });
+});
+
 
 app.post('/checkout', (req, res) => {
     // Fetch cart items with product details from the database
@@ -457,45 +467,81 @@ app.post('/checkout', (req, res) => {
     });
 });
   
-
 app.get('/category-page-layout', (req, res) => {
-    const categoryId = req.query.category_id;
-    const categoryName = req.query.category_name;
-
-    if (!categoryId || !categoryName) {
-        return res.status(400).json({ error: 'Category ID or name is missing' });
-    }
+    const categoryId = req.query.category_id || '1';  
+    const categoryName = req.query.category_name || 'Clothing';  
 
     const sql = `SELECT * FROM product WHERE category_id = ?`;
     const cartSql = `
     SELECT p.product_images1, p.product_name, p.product_price, c.product_quantity,c.product_name, c.product_price, c.cart_id, c.product_size, p.product_id
     FROM product AS p
-    INNER JOIN cart AS c ON p.product_name = c.product_name`; 
+    INNER JOIN cart AS c ON p.product_name = c.product_name`;
 
-    connection.query(sql, [categoryId], (err, results, cartItems) => {
+    connection.query(sql, [categoryId], (err, results) => {
         if (err) {
             console.error('Error fetching product data:', err);
             return res.status(500).json({ error: 'Something went wrong' });
         }
 
-        results.forEach(product => {
-            product.product_price = parseFloat(product.product_price);
-        });
+        connection.query(cartSql, (err, cartItems) => {
+            if (err) {
+                console.error('Error fetching cart items:', err);
+                return res.status(500).json({ error: 'Something went wrong' });
+            }
 
-        res.render('category-page-layout', {
-            category_id: categoryId,
-            category_name: categoryName,
-            products: results,
-            cartItems: cartItems 
+            results.forEach(product => {
+                product.product_price = parseFloat(product.product_price);
+            });
+
+            res.render('category-page-layout', {
+                category_id: categoryId,
+                category_name: categoryName,
+                products: results,
+                cartItems: cartItems 
+            });
         });
     });
 });
 
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/html/Homepage.html');
-  });
-  app.post('/sub', (req, res) => {
+    let categoryId = req.query.category_id || '1'; 
+    let categoryName = req.query.category_name || 'Clothing';  
+
+    const sql = `SELECT * FROM product WHERE category_id = ?`;
+    const cartSql = `
+    SELECT p.product_images1, p.product_name, p.product_price, c.product_quantity, c.product_name, c.product_price, c.cart_id, c.product_size, p.product_id
+    FROM product AS p
+    INNER JOIN cart AS c ON p.product_name = c.product_name`;
+
+    connection.query(sql, [categoryId], (err, results) => {
+        if (err) {
+            console.error('Error fetching product data:', err);
+            return res.status(500).json({ error: 'Something went wrong' });
+        }
+
+        connection.query(cartSql, (err, cartItems) => {
+            if (err) {
+                console.error('Error fetching cart items:', err);
+                return res.status(500).json({ error: 'Something went wrong' });
+            }
+
+            results.forEach(product => {
+                product.product_price = parseFloat(product.product_price);
+            });
+
+            res.render('home-page', {
+                category_id: categoryId,
+                category_name: categoryName,
+                products: results,
+                cartItems: cartItems
+            });            
+        });
+    });
+});
+
+
+app.post('/sub', (req, res) => {
       const email = req.body.email;
    
       const listId = 'bb6af78495';
