@@ -113,7 +113,7 @@
 
     <form id="addToCartForm" action="/add_to_cart" method="post">
       <div class="product-container">
-        <img src="<%= product.product_images1 %>" width="530px" height="640px" alt="Product Image" />
+        <img src="/image<%= product.product_images1 %>" width="530px" height="640px" alt="Product Image" />
         <div class="product-details">
           <input type="hidden" id="productName" name="product_name" value="<%= product.product_name %>" />
           <input type="hidden" id="productSize" name="product_size" value="" />

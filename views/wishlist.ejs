@@ -101,7 +101,7 @@
       <% wishlistItems.forEach(function(item) { %>
         <div class="col-md-4">
           <a href="/product-detail/<%= item.product_id %>">
-            <img class="imageBag" src="<%= item.product_images1 %>" />
+            <img class="imageBag" src="/image<%= item.product_images1 %>" />
           </a>
           <div class="card-body">
             <h5 class="card-title">
@@ -178,7 +178,7 @@
 
               // Create an image element
               const img = document.createElement("img");
-              img.src = `/imageBag/${productDetails.productId}.jpg`;
+              img.src = `/image/imageBag/${productDetails.productId}.jpg`;
               img.alt = "Product Image";
               img.classList.add("img-fluid");
               card.appendChild(img);

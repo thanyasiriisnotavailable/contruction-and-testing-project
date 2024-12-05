@@ -148,7 +148,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="/html/Homepage.html">
-      <img src="/images/jacquemus-logos-idHdmUIL-k.png" alt="Logo" width="120" class="navbar-brand element-with-space"
+      <img src="/image/images/jacquemus-logos-idHdmUIL-k.png" alt="Logo" width="120" class="navbar-brand element-with-space"
         href="/html/Homepage.html">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
@@ -172,13 +172,13 @@
         <li class="nav-item">
           <a class="d-lg-none nav-link mr-3" href="/wishlist">Favorite</a>
           <a class="d-none d-lg-inline mr-3 nav-link" href="/wishlist">
-            <img src="/images/Favorite.png" alt="Favorite Icon" width="45" class="d-inline mr-3 nav-link">
+            <img src="/image/images/Favorite.png" alt="Favorite Icon" width="45" class="d-inline mr-3 nav-link">
           </a>
         </li>
         <div class="cart-icon" id="cart-icon">
           <li class="nav-item">
             <a class="d-none d-lg-inline mr-3 nav-link" href="#">
-              <img src="/images/shopping-cart 1cart-icon.png" alt="Cart Icon" width="45" class="d-inline mr-3 nav-link">
+              <img src="/image/images/shopping-cart 1cart-icon.png" alt="Cart Icon" width="45" class="d-inline mr-3 nav-link">
               <button id="exitFullscreenButton" class="exit-fullscreen-button">&times;</button>
             </a>
           </li>
@@ -196,7 +196,7 @@
                       <% let productQuantity=parseInt(cartItem.product_quantity); %>
                         <% totalPrice +=productPrice * productQuantity; %>
                           <div class="cart-item">
-                            <img src="<%= cartItem.product_images1 %>" width="200px" height="260px" alt="Product Image">
+                            <img src="/image<%= cartItem.product_images1 %>" width="200px" height="260px" alt="Product Image">
                             <h2>
                               <%= cartItem.product_name %>
                             </h2>
