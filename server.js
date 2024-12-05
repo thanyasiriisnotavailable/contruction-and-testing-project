@@ -567,7 +567,7 @@ app.post('/sub', (req, res) => {
     });
 });
 
-app.get('/contact/contact-us', (req, res) => {
+app.get('/contact-us', (req, res) => {
     let categoryId = req.query.category_id || '1'; 
     let categoryName = req.query.category_name || 'Clothing';  
 
@@ -594,81 +594,7 @@ app.get('/contact/contact-us', (req, res) => {
                 product.product_price = parseFloat(product.product_price);
             });
 
-            res.render('contact/contact-us', {
-                category_id: categoryId,
-                category_name: categoryName,
-                products: results,
-                cartItems: cartItems
-            });            
-        });
-    });
-});
-
-app.get('/contact/form', (req, res) => {
-    let categoryId = req.query.category_id || '1'; 
-    let categoryName = req.query.category_name || 'Clothing';  
-
-    
-    const sql = `SELECT * FROM product WHERE category_id = ?`;
-    const cartSql = `
-    SELECT p.product_images1, p.product_name, p.product_price, c.product_quantity, c.product_name, c.product_price, c.cart_id, c.product_size, p.product_id
-    FROM product AS p
-    INNER JOIN cart AS c ON p.product_name = c.product_name`;
-
-    connection.query(sql, [categoryId], (err, results) => {
-        if (err) {
-            console.error('Error fetching product data:', err);
-            return res.status(500).json({ error: 'Something went wrong' });
-        }
-
-        connection.query(cartSql, (err, cartItems) => {
-            if (err) {
-                console.error('Error fetching cart items:', err);
-                return res.status(500).json({ error: 'Something went wrong' });
-            }
-
-            results.forEach(product => {
-                product.product_price = parseFloat(product.product_price);
-            });
-
-            res.render('contact/contact-form', {
-                category_id: categoryId,
-                category_name: categoryName,
-                products: results,
-                cartItems: cartItems
-            });            
-        });
-    });
-});
-
-app.get('/contact/our-store', (req, res) => {
-    let categoryId = req.query.category_id || '1'; 
-    let categoryName = req.query.category_name || 'Clothing';  
-
-    
-    const sql = `SELECT * FROM product WHERE category_id = ?`;
-    const cartSql = `
-    SELECT p.product_images1, p.product_name, p.product_price, c.product_quantity, c.product_name, c.product_price, c.cart_id, c.product_size, p.product_id
-    FROM product AS p
-    INNER JOIN cart AS c ON p.product_name = c.product_name`;
-
-    connection.query(sql, [categoryId], (err, results) => {
-        if (err) {
-            console.error('Error fetching product data:', err);
-            return res.status(500).json({ error: 'Something went wrong' });
-        }
-
-        connection.query(cartSql, (err, cartItems) => {
-            if (err) {
-                console.error('Error fetching cart items:', err);
-                return res.status(500).json({ error: 'Something went wrong' });
-            }
-
-            results.forEach(product => {
-                product.product_price = parseFloat(product.product_price);
-            });
-
-            res.render('contact/our-store', {
+            res.render('contact-us', {
                 category_id: categoryId,
                 category_name: categoryName,
                 products: results,
