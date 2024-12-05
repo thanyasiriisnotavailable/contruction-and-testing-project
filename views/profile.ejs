@@ -1,421 +1,403 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- font google -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
-
-    <!-- Font Awesom -->
-    <script src="https://kit.fontawesome.com/752c6ea0dd.js" crossorigin="anonymous"></script>
-    <title>Profile</title>
-    <link rel="stylesheet" href="/CSS/style.css">
+  <head>
+    <%- include('partials/head', { pageTitle: "Profile" }); %>
+    <link rel="stylesheet" href="/CSS/style.css" />
     <style>
-        .login-wrapper .form-control {
-            border: none;
-            border-bottom: 1px solid #e7e7e7;
-            border-radius: 0;
-            font-size: 14px;
-            font-weight: bold;
-            padding: 15px 10px;
-            margin-bottom: 10px;
+      .login-wrapper .form-control {
+        border: none;
+        border-bottom: 1px solid #e7e7e7;
+        border-radius: 0;
+        font-size: 14px;
+        font-weight: bold;
+        padding: 15px 10px;
+        margin-bottom: 10px;
+      }
 
+      .form-control input {
+        border: none;
+        margin-left: 50px;
+      }
+
+      .inputform p {
+        text-align: left;
+        margin-left: 100px;
+      }
+
+      .account-section .form-control {
+        border: none;
+        border-bottom: 1px solid black;
+        margin-left: 100px;
+      }
+
+      .inputform {
+        display: flex;
+        justify-content: left;
+        margin-left: 270px;
+      }
+
+      .account-section button {
+        color: white;
+      }
+
+      .form-control {
+        border: none;
+        border-bottom: none;
+        border-radius: 0;
+      }
+
+      .inputform .mb-3 {
+        margin-bottom: 0;
+      }
+
+      .form-label {
+        display: inline-block;
+        margin-bottom: 30px;
+      }
+
+      .button-style {
+        background-color: transparent;
+        color: black;
+        border: none;
+        position: relative;
+        left: 900px;
+        display: flex;
+        justify-content: right;
+      }
+
+      .button-style p {
+        font-size: 14px;
+      }
+
+      .inputform input[type="text"] {
+        border: none;
+      }
+
+      .inputform input[type="email"] {
+        width: 700px;
+      }
+
+      .inputform input[type="password"] {
+        width: 400px;
+      }
+
+      .inputform .mb-3 {
+        border: none;
+        padding: 0;
+      }
+
+      .form-control {
+        border: none;
+        border-bottom: none;
+        border-radius: 0;
+      }
+
+      .inputform {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .input-group {
+        display: flex;
+        align-items: center;
+      }
+
+      .form-control {
+        border: none;
+        border-bottom: none;
+        border-radius: 0;
+      }
+
+      .form-label {
+        margin-right: 10px;
+        /* Adjust spacing between label and input */
+      }
+
+      @media (max-width: 767px) {
+        .container {
+          padding: 10px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .contactus h3 {
+          font-size: 20px;
+          /* Reduced font size for h3 on mobile */
+        }
+
+        .account-section p {
+          font-size: 16px;
+          margin-top: 15px;
+        }
+
+        .center-links a {
+          font-size: 16px;
+        }
+
+        form p {
+          text-align: left;
+          margin-left: -40px;
+        }
+
+        form input {
+          margin-left: -40px;
+          width: 100px;
+        }
+
+        form .form-footer a {
+          font-size: 14px;
+        }
+
+        .form-footer button {
+          margin-right: 400px;
+          margin-top: 20px;
+        }
+
+        .form-footer p {
+          font-size: 16px;
+        }
+
+        .account-section .form-footer a {
+          font-size: 16px;
+          text-align: right;
+          margin-bottom: auto;
+          margin-left: auto;
+          position: relative;
+          left: 50px;
+        }
+
+        .form-footer {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-top: 20px;
+          text-align: right;
+        }
+
+        .form-footer button {
+          margin-top: auto;
+          margin-bottom: 30px;
+        }
+
+        .form-footer a {
+          margin-top: auto;
+          font-size: 16px;
+        }
+
+        #footer {
+          text-align: center;
+        }
+
+        #footer .container-fluid {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        #footer .container-fluid ul {
+          list-style-type: none;
+          margin: 0;
+          padding: 5px;
+        }
+
+        #footer .conpyright li {
+          font-size: 14px;
+          margin-top: 20px;
+        }
+
+        .login-wrapper .form-control {
+          border: none;
+          border-bottom: 1px solid #e7e7e7;
+          border-radius: 0;
+          font-size: 14px;
+          font-weight: bold;
+          padding: 15px 10px;
+          margin-bottom: 10px;
         }
 
         .form-control input {
-            border: none;
-            margin-left: 50px;
+          border: none;
+          margin-left: 50px;
         }
 
         .inputform p {
-            text-align: left;
-            margin-left: 100px;
+          text-align: left;
         }
 
         .account-section .form-control {
-            border: none;
-            border-bottom: 1px solid black;
-            margin-left: 100px;
+          border: none;
+          border-bottom: 1px solid black;
+          margin-left: 100px;
         }
 
-        .inputform {
-            display: flex;
-            justify-content: left;
-            margin-left: 270px;
+        .form-control input[type="text"] {
+          border: none;
+        }
+
+        .form-control input[type="email"] {
+          max-width: 100px;
+          width: 50%;
         }
 
         .account-section button {
-            color: white;
-
+          color: white;
         }
 
         .form-control {
-            border: none;
-            border-bottom: none;
-            border-radius: 0;
+          border: none;
+          border-bottom: none;
+          border-radius: 0;
         }
 
         .inputform .mb-3 {
-            margin-bottom: 0;
+          margin-bottom: 0;
         }
 
         .form-label {
-            display: inline-block;
-            margin-bottom: 30px;
+          display: inline-block;
+          margin-bottom: 30px;
         }
 
         .button-style {
-            background-color: transparent;
-            color: black;
-            border: none;
-            position: relative;
-            left: 900px;
-            display: flex;
-            justify-content: right;
-
+          background-color: transparent;
+          color: black;
+          border: none;
+          position: relative;
+          left: 400px;
+          text-decoration: none;
         }
 
         .button-style p {
-            font-size: 14px;
+          font-size: 14px;
         }
 
         .inputform input[type="text"] {
-            border: none;
+          border: none;
         }
 
         .inputform input[type="email"] {
-            width: 700px;
+          width: 350px;
         }
 
         .inputform input[type="password"] {
-            width: 400px;
+          width: 200px;
         }
 
         .inputform .mb-3 {
-            border: none;
-            padding: 0;
+          border: none;
+          padding: 0;
         }
 
         .form-control {
-            border: none;
-            border-bottom: none;
-            border-radius: 0;
+          border: none;
+          border-bottom: none;
+          border-radius: 0;
         }
 
         .inputform {
-            display: flex;
-            flex-direction: column;
+          display: flex;
+          /* flex-direction: column; */
+          justify-content: left;
         }
 
         .input-group {
-            display: flex;
-            align-items: center;
+          display: flex;
+          align-items: center;
         }
 
         .form-control {
-            border: none;
-            border-bottom: none;
-            border-radius: 0;
+          border: none;
+          border-bottom: none;
+          border-radius: 0;
         }
 
         .form-label {
-            margin-right: 10px;
-            /* Adjust spacing between label and input */
+          margin-right: 10px;
+          /* Adjust spacing between label and input */
         }
 
-
-
-        @media (max-width: 767px) {
-            .container {
-                padding: 10px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-
-            .contactus h3 {
-                font-size: 20px;
-                /* Reduced font size for h3 on mobile */
-            }
-
-            .account-section p {
-                font-size: 16px;
-                margin-top: 15px;
-            }
-
-            .center-links a {
-                font-size: 16px;
-            }
-
-            form p {
-                text-align: left;
-                margin-left: -40px;
-            }
-
-            form input {
-                margin-left: -40px;
-                width: 100px;
-            }
-
-            form .form-footer a {
-                font-size: 14px;
-            }
-
-            .form-footer button {
-                margin-right: 400px;
-                margin-top: 20px;
-            }
-
-            .form-footer p {
-                font-size: 16px;
-            }
-
-            .account-section .form-footer a {
-                font-size: 16px;
-                text-align: right;
-                margin-bottom: auto;
-                margin-left: auto;
-                position: relative;
-                left: 50px;
-            }
-
-            .form-footer {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                margin-top: 20px;
-                text-align: right;
-            }
-
-            .form-footer button {
-                margin-top: auto;
-                margin-bottom: 30px;
-            }
-
-            .form-footer a {
-                margin-top: auto;
-                font-size: 16px
-            }
-
-            #footer {
-                text-align: center;
-            }
-
-            #footer .container-fluid {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-
-            #footer .container-fluid ul {
-                list-style-type: none;
-                margin: 0;
-                padding: 5px;
-            }
-
-            #footer .conpyright li {
-                font-size: 14px;
-                margin-top: 20px;
-            }
-
-            .login-wrapper .form-control {
-                border: none;
-                border-bottom: 1px solid #e7e7e7;
-                border-radius: 0;
-                font-size: 14px;
-                font-weight: bold;
-                padding: 15px 10px;
-                margin-bottom: 10px;
-
-            }
-
-            .form-control input {
-                border: none;
-                margin-left: 50px;
-            }
-
-            .inputform p {
-                text-align: left;
-            }
-
-            .account-section .form-control {
-                border: none;
-                border-bottom: 1px solid black;
-                margin-left: 100px;
-            }
-
-            .form-control input[type="text"] {
-                border: none;
-            }
-
-            .form-control input[type="email"] {
-                max-width: 100px;
-                width: 50%;
-            }
-
-            .account-section button {
-                color: white;
-
-            }
-
-            .form-control {
-                border: none;
-                border-bottom: none;
-                border-radius: 0;
-            }
-
-            .inputform .mb-3 {
-                margin-bottom: 0;
-            }
-
-            .form-label {
-                display: inline-block;
-                margin-bottom: 30px;
-            }
-
-            .button-style {
-                background-color: transparent;
-                color: black;
-                border: none;
-                position: relative;
-                left: 400px;
-                text-decoration: none;
-            }
-
-            .button-style p {
-                font-size: 14px;
-            }
-
-            .inputform input[type="text"] {
-                border: none;
-            }
-
-            .inputform input[type="email"] {
-                width: 350px;
-            }
-
-            .inputform input[type="password"] {
-                width: 200px;
-            }
-
-            .inputform .mb-3 {
-                border: none;
-                padding: 0;
-            }
-
-            .form-control {
-                border: none;
-                border-bottom: none;
-                border-radius: 0;
-            }
-
-            .inputform {
-                display: flex;
-                /* flex-direction: column; */
-                justify-content: left;
-            }
-
-            .input-group {
-                display: flex;
-                align-items: center;
-            }
-
-            .form-control {
-                border: none;
-                border-bottom: none;
-                border-radius: 0;
-            }
-
-            .form-label {
-                margin-right: 10px;
-                /* Adjust spacing between label and input */
-            }
-
-            .container {
-                padding: 10px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                flex-direction: column;
-            }
-
-            .inputform {
-                margin-left: 0;
-                align-items: center;
-                text-align: left;
-                /* Center text */
-            }
-
-            .account-section .inputform {
-                display: inline;
-                justify-content: left;
-            }
-
+        .container {
+          padding: 10px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
         }
+
+        .inputform {
+          margin-left: 0;
+          align-items: center;
+          text-align: left;
+          /* Center text */
+        }
+
+        .account-section .inputform {
+          display: inline;
+          justify-content: left;
+        }
+      }
     </style>
-</head>
+  </head>
 
-<body>
-    
+  <body>
     <%- include('partials/navbar.ejs'); %>
     <div class="account-section">
-        <h3>Account</h3>
-        <hr>
-        <p>welcome</p>
-        <br>
-        <br>
+      <h3>Account</h3>
+      <hr />
+      <p>welcome</p>
+      <br />
+      <br />
 
-        <div class="inputform">
-            <p>Hello,</p>
-            <div class="input-group">
-                <input type="text" name="name" id="firstname" class="form-control" placeholder="<%= user.firstname %>">
-            </div>
-            <div class="mb-3">
-                <p class="user-text">Email address</p>
-                <input type="email" name="email" id="email-adress" class="form-control" placeholder="<%= user.email %>">
-            </div>
-            <div class="mb-3">
-                <p class="user-text">Password</p>
-                <input type="password" name="password" id="password" class="form-control"
-                    placeholder="<%= user.password %>">
-            </div>
+      <div class="inputform">
+        <p>Hello,</p>
+        <div class="input-group">
+          <input
+            type="text"
+            name="name"
+            id="firstname"
+            class="form-control"
+            placeholder="<%= user.firstname %>"
+          />
         </div>
-
-    </div>
-    </div>
-    </div>
-    <button class="btn btn-lg btn-primary button-style"> <a href="/html/Account/login.html" type="submit"
-            style="color: #000;">log out</a></button>
-
-    <section id="intro-section">
-        <div class="container-fluid bg-gray">
-            <h4>Newsletter</h4>
-            <p>Sign in to receive our lastest news about collection,
-                products, shows and collaborations</p>
-            <div class="email-input-container">
-                <input type="email" id="email-input" placeholder="Enter your email">
-                <button id="send-button" style="display: none;"><i class="fas fa-arrow-right"></i></button>
-            </div>
+        <div class="mb-3">
+          <p class="user-text">Email address</p>
+          <input
+            type="email"
+            name="email"
+            id="email-adress"
+            class="form-control"
+            placeholder="<%= user.email %>"
+          />
         </div>
-    </section>
+        <div class="mb-3">
+          <p class="user-text">Password</p>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            class="form-control"
+            placeholder="<%= user.password %>"
+          />
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-lg btn-primary button-style">
+      <a href="/html/Account/login.html" type="submit" style="color: #000"
+        >log out</a
+      >
+    </button>
+
+    <%- include('partials/news-letter') %>
     <%- include('partials/footer') %>
-
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/js/bootstrap.min.js"></script>
-
-        <script>
-            var userPassword = document.getElementById('password').getAttribute('placeholder');
-            var hiddenPassword = '*'.repeat(userPassword.length);
-            document.getElementById('password').setAttribute('value', hiddenPassword);
-        </script>
-</body>
-
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      var userPassword = document
+        .getElementById("password")
+        .getAttribute("placeholder");
+      var hiddenPassword = "*".repeat(userPassword.length);
+      document.getElementById("password").setAttribute("value", hiddenPassword);
+    </script>
+  </body>
 </html>
