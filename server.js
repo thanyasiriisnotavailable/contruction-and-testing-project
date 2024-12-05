@@ -71,32 +71,7 @@ app.post('/addwishlist', (req, res) => {
         }
     });
 });
-// app.post("/addwishlist", async (req, res) => {
-//     //const user = await UserDB.findById(req.session.userId);
-   
-//     console.log("session-/addwishlist: ", req.sessionID);
-   
-//     // collect user input from the VIEW
-//     //await const wishingProducts = req.body.box;
-   
-//     req.session.wish = req.body.box;
-   
-//     console.log("session-/addwishlist: ", req.session);
-   
-//     const user = await UserDB.findById(req.session.userId);
-//     let products = await ProductDB.findAll();
-//     let user_wishlists = req.session.wish;
-   
-//     // use res.render to load up an ejs view file
-//     res.render("wishlist", {
-//       products: products,
-//       user: user,
-//       wishlists: user_wishlists,
-//     });
-   
-//   });
- 
-// Failure route
+
 app.post('/failure', (req, res) => {
     res.redirect('/');
 });
@@ -205,8 +180,6 @@ app.get('/all-product', (req, res) => {
 });
 
 
-
-
 app.get('/product-detail/:productId', (req, res) => {
     const productId = req.params.productId;
     const sql = 'SELECT * FROM product WHERE product_id = ?';
@@ -313,7 +286,6 @@ app.post('/remove_from_cart', (req, res) => {
     });
 });
 
-
 app.post('/register', (req, res) => {
     const { email, firstname, lastname, password, confirmpassword } = req.body;
   
@@ -328,10 +300,10 @@ app.post('/register', (req, res) => {
         return res.status(500).json({ error: 'Something went wrong' });
       }
       console.log('User registered successfully');
-     
-      res.redirect('/html/Account/login.html');
+      res.redirect('account/login');
     });
   });
+  
   app.post('/login', (req, res) => {
     const { email, password } = req.body;
  
@@ -451,7 +423,7 @@ app.post('/checkout', (req, res) => {
                     return res.status(500).json({ error: 'Failed to delete cart items' });
                 }
 
-                res.redirect(`/html/Homepage.html`);  });
+                res.redirect(`/`);  });
         });
     });
 });
@@ -542,45 +514,45 @@ app.get('/', (req, res) => {
 
 
 app.post('/sub', (req, res) => {
-      const email = req.body.email;
+    const email = req.body.email;
    
-      const listId = 'bb6af78495';
-      const apiKey = '77ec684138a9f0a747ba12dedd4af83e-us14';
-   
-      const config = {
-          method: "post",
-          url: `https://us14.api.mailchimp.com/3.0/lists/${listId}`,
-          auth: {
-              username: 'anyname',
-              password: apiKey,
-          },
-          data: {
-              members: [
-                  {
-                      email_address: email,
-                      status: 'subscribed',
-                 
-                  },
-              ],
-          },
-      };
-   
-      axios(config)
-          .then(response => {
-              if (response.status === 200 && response.data.error_count === 0) {
-                  console.log(`New Member :`, req.body.email);
-                  res.sendFile(__dirname + '/html/success.html');
-              } else {
-                  console.log(`something went wrong`);
-                  res.sendFile(__dirname + '/html/failure.html');
-              }
-          }
-          )
-          .catch(error => {
-              console.error(error);
-            });
-  });
-  
+    const listId = 'bb6af78495';
+    const apiKey = '77ec684138a9f0a747ba12dedd4af83e-us14'; 
+
+    const config = {
+        method: "post",
+        url: `https://us14.api.mailchimp.com/3.0/lists/${listId}`,
+        auth: {
+            username: 'anyname', 
+            password: apiKey, 
+        },
+        data: {
+            members: [
+                {
+                    email_address: email,
+                    status: 'subscribed',
+                },
+            ],
+        },
+    };
+
+    axios(config)
+        .then(response => {
+            if (response.status === 200 && response.data.error_count === 0) {
+                console.log(`New Member:`, req.body.email);
+                res.sendFile(path.join(__dirname, 'public', 'html', 'success.html'));
+            } else {
+                console.log(`Something went wrong`);
+                res.sendFile(path.join(__dirname, 'public', 'html', 'failure.html'));
+            }
+        })
+        .catch(error => {
+            console.error('Mailchimp API Error:', error);
+            res.sendFile(path.join(__dirname, 'public', 'html', 'failure.html'));
+        });
+});
+
+
   app.post('/update_quantity', (req, res) => {
     const { cartId, newQuantity } = req.body;
     const sql = 'UPDATE cart SET product_quantity = ? WHERE cart_id = ?';
@@ -594,6 +566,119 @@ app.post('/sub', (req, res) => {
         }
     });
 });
+
+app.get('/contact/contact-us', (req, res) => {
+    let categoryId = req.query.category_id || '1'; 
+    let categoryName = req.query.category_name || 'Clothing';  
+
+    
+    const sql = `SELECT * FROM product WHERE category_id = ?`;
+    const cartSql = `
+    SELECT p.product_images1, p.product_name, p.product_price, c.product_quantity, c.product_name, c.product_price, c.cart_id, c.product_size, p.product_id
+    FROM product AS p
+    INNER JOIN cart AS c ON p.product_name = c.product_name`;
+
+    connection.query(sql, [categoryId], (err, results) => {
+        if (err) {
+            console.error('Error fetching product data:', err);
+            return res.status(500).json({ error: 'Something went wrong' });
+        }
+
+        connection.query(cartSql, (err, cartItems) => {
+            if (err) {
+                console.error('Error fetching cart items:', err);
+                return res.status(500).json({ error: 'Something went wrong' });
+            }
+
+            results.forEach(product => {
+                product.product_price = parseFloat(product.product_price);
+            });
+
+            res.render('contact/contact-us', {
+                category_id: categoryId,
+                category_name: categoryName,
+                products: results,
+                cartItems: cartItems
+            });            
+        });
+    });
+});
+
+
+app.get('/account/register', (req, res) => {
+    let categoryId = req.query.category_id || '1'; 
+    let categoryName = req.query.category_name || 'Clothing';  
+
+    const sql = 'SELECT * FROM product WHERE category_id = ?';
+    const cartSql = `
+        SELECT p.product_images1, p.product_name, p.product_price, c.product_quantity, c.product_name, c.product_price, c.cart_id, c.product_size, p.product_id
+        FROM product AS p
+        INNER JOIN cart AS c ON p.product_name = c.product_name
+    `;
+
+    connection.query(sql, [categoryId], (err, results) => {
+        if (err) {
+            console.error('Error fetching product data:', err);
+            return res.status(500).json({ error: 'Something went wrong' });
+        }
+
+        connection.query(cartSql, (err, cartItems) => {
+            if (err) {
+                console.error('Error fetching cart items:', err);
+                return res.status(500).json({ error: 'Something went wrong' });
+            }
+
+            results.forEach(product => {
+                product.product_price = parseFloat(product.product_price);
+            });
+
+            res.render('account/register', {
+                category_id: categoryId,
+                category_name: categoryName,
+                products: results,
+                cartItems: cartItems
+            });
+        });
+    });
+});
+
+app.get('/account/login', (req, res) => {
+    let categoryId = req.query.category_id || '1'; 
+    let categoryName = req.query.category_name || 'Clothing';  
+
+    const sql = 'SELECT * FROM product WHERE category_id = ?';
+    const cartSql = `
+        SELECT p.product_images1, p.product_name, p.product_price, c.product_quantity, c.product_name, c.product_price, c.cart_id, c.product_size, p.product_id
+        FROM product AS p
+        INNER JOIN cart AS c ON p.product_name = c.product_name
+    `;
+
+    connection.query(sql, [categoryId], (err, results) => {
+        if (err) {
+            console.error('Error fetching product data:', err);
+            return res.status(500).json({ error: 'Something went wrong' });
+        }
+
+        connection.query(cartSql, (err, cartItems) => {
+            if (err) {
+                console.error('Error fetching cart items:', err);
+                return res.status(500).json({ error: 'Something went wrong' });
+            }
+
+            results.forEach(product => {
+                product.product_price = parseFloat(product.product_price);
+            });
+
+            res.render('account/login', {
+                category_id: categoryId,
+                category_name: categoryName,
+                products: results,
+                cartItems: cartItems
+            });
+        });
+    });
+});
+
 
 
 // Start the server
