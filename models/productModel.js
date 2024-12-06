@@ -1,5 +1,6 @@
 const connection = require('../config/db');
 
+
 exports.getProducts = (callback) => {
     const sql = 'SELECT * FROM product';
     connection.query(sql, callback);

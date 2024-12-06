@@ -1,11 +1,10 @@
 <section id="intro-section">
-  <form action="/sub" method="post">
+  <form id="newsletter-form">
     <div class="container-fluid bg-gray">
       <h4>Newsletter</h4>
       <br />
       <p>
-        Sign in to receive our lastest news about collection, products, shows
-        and collaborations
+        Sign in to receive our latest news about collections, products, shows, and collaborations
       </p>
       <div class="email-input-container">
         <input
@@ -14,7 +13,7 @@
           id="email-input"
           placeholder="Enter your email"
         />
-        <button id="send-button" style="display: none">
+        <button type="button" id="send-button" style="display: none">
           <i class="fas fa-arrow-right"></i>
         </button>
       </div>
@@ -22,4 +21,40 @@
   </form>
 </section>
 
-<script src="/controllers/news/news-letter-controller.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const emailInput = document.getElementById("email-input");
+    const sendButton = document.getElementById("send-button");
+
+    emailInput.addEventListener("input", function () {
+      if (this.value.includes("@")) {
+        sendButton.style.display = "inline-block";
+      } else {
+        sendButton.style.display = "none";
+      }
+    });
+
+    sendButton.addEventListener("click", function (event) {
+      event.preventDefault(); 
+      const email = emailInput.value;
+
+      fetch('/sub', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      })
+        .then((response) => {
+          if (response.ok) {
+            window.location.href = '/html/success.html';
+          } else {
+            window.location.href = '/html/failure.html';
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          window.location.href = '/html/failure.html';
+        });
+    });
+  });
+</script>

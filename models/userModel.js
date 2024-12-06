@@ -1,11 +1,33 @@
 const connection = require('../config/db');
 
-exports.registerUser = (user, callback) => {
+const registerUser = (email, firstname, lastname, password, callback) => {
     const sql = 'INSERT INTO registcus (email, firstname, lastname, password) VALUES (?, ?, ?, ?)';
-    connection.query(sql, [user.email, user.firstname, user.lastname, user.password], callback);
+    connection.query(sql, [email, firstname, lastname, password], (err, results) => {
+        if (err) {
+            console.error('Error registering user:', err);
+            return callback(err, null);
+        }
+        callback(null, results);
+    });
 };
 
-exports.authenticateUser = (email, password, callback) => {
+const checkUserCredentials = (email, password, callback) => {
     const sql = 'SELECT * FROM registcus WHERE email = ? AND password = ?';
-    connection.query(sql, [email, password], callback);
+    connection.query(sql, [email, password], (err, results) => {
+        if (err) {
+            console.error('Error checking user credentials:', err);
+            return callback(err, null);
+        }
+
+        if (results.length === 1) {
+            callback(null, results[0]);
+        } else {
+            callback(null, null);
+        }
+    });
+};
+
+module.exports = {
+    registerUser,
+    checkUserCredentials
 };
