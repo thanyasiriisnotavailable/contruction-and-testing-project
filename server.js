@@ -76,6 +76,10 @@ app.post('/failure', (req, res) => {
     res.redirect('/');
 });
 
+app.post('/success', (req, res) => { 
+    res.redirect('/'); 
+});
+
 
 // app.get('/wishlist', (req, res) => {
 //     const removeDuplicatesSQL = `
@@ -515,22 +519,23 @@ app.get('/profile', (req, res) => {
 
 app.post('/sub', (req, res) => {
     const email = req.body.email;
-   
-    const listId = 'bb6af78495';
-    const apiKey = '77ec684138a9f0a747ba12dedd4af83e-us14'; 
 
+    const listId = '7f941ae0ba'; 
+    const apiKey = '4d03304910748948e45baafdc373c862-us8';
+
+    const dataCenter = 'us8';  
     const config = {
         method: "post",
-        url: `https://us14.api.mailchimp.com/3.0/lists/${listId}`,
+        url: `https://${dataCenter}.api.mailchimp.com/3.0/lists/${listId}`, 
         auth: {
             username: 'anyname', 
-            password: apiKey, 
+            password: apiKey,
         },
         data: {
             members: [
                 {
                     email_address: email,
-                    status: 'subscribed',
+                    status: 'subscribed', 
                 },
             ],
         },
@@ -538,17 +543,24 @@ app.post('/sub', (req, res) => {
 
     axios(config)
         .then(response => {
+            console.log('Mailchimp Response:', response.data);
             if (response.status === 200 && response.data.error_count === 0) {
+                
                 console.log(`New Member:`, req.body.email);
                 res.sendFile(path.join(__dirname, 'public', 'html', 'success.html'));
             } else {
-                console.log(`Something went wrong`);
+                console.log('Something went wrong with Mailchimp:', response.data);
                 res.sendFile(path.join(__dirname, 'public', 'html', 'failure.html'));
             }
         })
         .catch(error => {
-            console.error('Mailchimp API Error:', error);
-            res.sendFile(path.join(__dirname, 'public', 'html', 'failure.html'));
+            if (error.response) {
+                console.error('Mailchimp API Error:', error.response.data);
+                res.sendFile(path.join(__dirname, 'public', 'html', 'failure.html'));
+            } else {
+                console.error('Network or Unknown Error:', error);
+                res.sendFile(path.join(__dirname, 'public', 'html', 'failure.html'));
+            }
         });
 });
 
