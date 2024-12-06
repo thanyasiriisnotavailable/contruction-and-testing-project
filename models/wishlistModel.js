@@ -16,6 +16,7 @@ const removeDuplicateWishlistItems = (callback) => {
     `;
     connection.query(removeDuplicatesSQL, (err, results) => {
         if (err) {
+            console.error('Error removing duplicate wishlist items:', err);
             return callback(err, null);
         }
         callback(null, results);
@@ -30,25 +31,42 @@ const fetchWishlistItems = (callback) => {
     `;
     connection.query(fetchWishlistSQL, (err, results) => {
         if (err) {
+            console.error('Error fetching wishlist items:', err);
             return callback(err, null);
         }
         callback(null, results);
     });
 };
 
-// Add product to wishlist
 const addProductToWishlist = (productId, callback) => {
     const sql = 'INSERT INTO wishlist (product_id) VALUES (?)';
     connection.query(sql, [productId], (err, results) => {
         if (err) {
+            console.error('Error adding product to wishlist:', err);
             return callback(err, null);
         }
         callback(null, results);
+    });
+};
+
+const fetchCartItems = (callback) => {
+    const cartSql = `
+        SELECT p.product_images1, p.product_name, p.product_price, c.product_quantity, c.product_name, c.product_price, c.cart_id, c.product_size, p.product_id
+        FROM product AS p
+        INNER JOIN cart AS c ON p.product_name = c.product_name
+    `;
+    connection.query(cartSql, (err, cartItems) => {
+        if (err) {
+            console.error('Error fetching cart items:', err);
+            return callback(err, null);
+        }
+        callback(null, cartItems);
     });
 };
 
 module.exports = {
     removeDuplicateWishlistItems,
     fetchWishlistItems,
-    addProductToWishlist
+    addProductToWishlist,
+    fetchCartItems
 };
