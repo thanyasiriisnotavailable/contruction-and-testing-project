@@ -1,38 +1,38 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const path = require('path');
-const axios = require('axios');
-const mysql = require('mysql2');
-const ejs = require('ejs'); 
-const { connect } = require('http2');
+// const express = require('express');
+// const bodyParser = require('body-parser');
+// const path = require('path');
+// const axios = require('axios');
+// const mysql = require('mysql2');
+// const ejs = require('ejs'); 
+// const { connect } = require('http2');
  
 
-const app = express();
+// const app = express();
  
-app.use(express.static("public"));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(express.static("public"));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
  
  
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'Patty.27092003',
-    database: 'project_323'
-  });
+// const connection = mysql.createConnection({
+//     host: 'localhost',
+//     user: 'root',
+//     password: 'Patty.27092003',
+//     database: 'project_323'
+//   });
 
-connection.connect((err) => {
-    if (err) {
-        console.error('Error connecting to MySQL database:', err);
-        return;
-    }
-    console.log('Connected to MySQL database');
-});
+// connection.connect((err) => {
+//     if (err) {
+//         console.error('Error connecting to MySQL database:', err);
+//         return;
+//     }
+//     console.log('Connected to MySQL database');
+// });
 
-// / Set EJS as the view engine
-app.set('view engine', 'ejs');
-// Specify the directory where your views are located
-app.set('views', __dirname + '/views');
+// // / Set EJS as the view engine
+// app.set('view engine', 'ejs');
+// // Specify the directory where your views are located
+// app.set('views', __dirname + '/views');
  
  
 // Define products array
@@ -42,267 +42,267 @@ const products = [
 ];
  
 // Serve static files
-app.use(express.static(__dirname));
+// app.use(express.static(__dirname));
  
 
 // Products route
-app.get('/products', (req, res) => {
-    res.render('product.ejs', { products: products });
-});
+// app.get('/products', (req, res) => {
+//     res.render('product.ejs', { products: products });
+// });
  
 // Endpoint to handle adding a product to the wishlist
-app.post('/addwishlist', (req, res) => {
-    // Retrieve the productId and productName from the request body
-    const { productId } = req.body;
+// app.post('/addwishlist', (req, res) => {
+//     // Retrieve the productId and productName from the request body
+//     const { productId } = req.body;
  
-    // Insert the productId and productName into the wishlist table in your MySQL database
-    const sql = `INSERT INTO wishlist (product_id) VALUES (?)`;
-    connection.query(sql, [productId], (error, results) => {
-        if (error) {
-            // Log the error
-            console.error('Error adding product to wishlist:', error);
-            // Send an error response
-            res.status(500).json({ error: 'Failed to add product to wishlist' });
-        } else {
-            // Log success message
-            console.log('Product added to wishlist:', productId);
-            // Send a success response
-            res.status(200).json({ message: 'Product added to wishlist successfully' });
-        }
-    });
-});
+//     // Insert the productId and productName into the wishlist table in your MySQL database
+//     const sql = `INSERT INTO wishlist (product_id) VALUES (?)`;
+//     connection.query(sql, [productId], (error, results) => {
+//         if (error) {
+//             // Log the error
+//             console.error('Error adding product to wishlist:', error);
+//             // Send an error response
+//             res.status(500).json({ error: 'Failed to add product to wishlist' });
+//         } else {
+//             // Log success message
+//             console.log('Product added to wishlist:', productId);
+//             // Send a success response
+//             res.status(200).json({ message: 'Product added to wishlist successfully' });
+//         }
+//     });
+// });
 
 app.post('/failure', (req, res) => {
     res.redirect('/');
 });
 
 
-app.get('/wishlist', (req, res) => {
-    const removeDuplicatesSQL = `
-        DELETE FROM wishlist
-        WHERE product_id IN (
-            SELECT product_id FROM (
-                SELECT product_id FROM wishlist
-                WHERE product_id IN (
-                    SELECT product_id FROM wishlist
-                    GROUP BY product_id
-                    HAVING COUNT(*) > 1
-                )
-            ) AS temp
-        )
-    `;
+// app.get('/wishlist', (req, res) => {
+//     const removeDuplicatesSQL = `
+//         DELETE FROM wishlist
+//         WHERE product_id IN (
+//             SELECT product_id FROM (
+//                 SELECT product_id FROM wishlist
+//                 WHERE product_id IN (
+//                     SELECT product_id FROM wishlist
+//                     GROUP BY product_id
+//                     HAVING COUNT(*) > 1
+//                 )
+//             ) AS temp
+//         )
+//     `;
 
-    connection.query(removeDuplicatesSQL, (err) => {
-        if (err) {
-            console.error('Error removing duplicate entries from wishlist table:', err);
-            return res.status(500).json({ error: 'Something went wrong' });
-        }
+//     connection.query(removeDuplicatesSQL, (err) => {
+//         if (err) {
+//             console.error('Error removing duplicate entries from wishlist table:', err);
+//             return res.status(500).json({ error: 'Something went wrong' });
+//         }
 
-        const cartSql = `
-        SELECT p.product_images1, p.product_name, p.product_price, c.product_quantity, c.product_name, c.product_price, c.cart_id, c.product_size, p.product_id
-        FROM product AS p
-        INNER JOIN cart AS c ON p.product_name = c.product_name`; 
+//         const cartSql = `
+//         SELECT p.product_images1, p.product_name, p.product_price, c.product_quantity, c.product_name, c.product_price, c.cart_id, c.product_size, p.product_id
+//         FROM product AS p
+//         INNER JOIN cart AS c ON p.product_name = c.product_name`; 
 
-        const fetchWishlistSQL = `
-            SELECT w.product_id, p.product_name, p.product_images1, p.product_price 
-            FROM wishlist w 
-            JOIN product p ON w.product_id = p.product_id
-        `;
+//         const fetchWishlistSQL = `
+//             SELECT w.product_id, p.product_name, p.product_images1, p.product_price 
+//             FROM wishlist w 
+//             JOIN product p ON w.product_id = p.product_id
+//         `;
 
-        // First fetch the wishlist items
-        connection.query(fetchWishlistSQL, (err, results) => {
-            if (err) {
-                console.error('Error fetching wishlist items:', err);
-                return res.status(500).json({ error: 'Something went wrong' });
-            }
+//         // First fetch the wishlist items
+//         connection.query(fetchWishlistSQL, (err, results) => {
+//             if (err) {
+//                 console.error('Error fetching wishlist items:', err);
+//                 return res.status(500).json({ error: 'Something went wrong' });
+//             }
 
-            results.forEach(product => {
-                product.product_price = parseFloat(product.product_price); 
-            });
+//             results.forEach(product => {
+//                 product.product_price = parseFloat(product.product_price); 
+//             });
 
-            // After that, fetch the cart items
-            connection.query(cartSql, (err, cartItems) => {
-                if (err) {
-                    console.error('Error fetching cart items:', err);
-                    return res.status(500).json({ error: 'Something went wrong' });
-                }
+//             // After that, fetch the cart items
+//             connection.query(cartSql, (err, cartItems) => {
+//                 if (err) {
+//                     console.error('Error fetching cart items:', err);
+//                     return res.status(500).json({ error: 'Something went wrong' });
+//                 }
 
-                // Render the wishlist view with both wishlistItems and cartItems
-                res.render('wishlist', { wishlistItems: results, cartItems });
-            });
-        });
-    });
-});
+//                 // Render the wishlist view with both wishlistItems and cartItems
+//                 res.render('wishlist', { wishlistItems: results, cartItems });
+//             });
+//         });
+//     });
+// });
 
 
-function calculateTotalPages(totalProducts, productsPerPage) {
-    return Math.ceil(totalProducts / productsPerPage);
-}
+// function calculateTotalPages(totalProducts, productsPerPage) {
+//     return Math.ceil(totalProducts / productsPerPage);
+// }
  
-app.get('/all-product', (req, res) => {
-    const sql = 'SELECT COUNT(*) AS totalProducts FROM product';
-    connection.query(sql, (err, results) => {
-        if (err) {
-            console.error('Error fetching product count:', err);
-            return res.status(500).json({ error: 'Something went wrong' });
-        }
-        const totalProducts = results[0].totalProducts;
-        const currentPage = parseInt(req.query.page) || 1;
-        const productsPerPage = 12;
-        const totalPages = calculateTotalPages(totalProducts, productsPerPage);
+// app.get('/all-product', (req, res) => {
+//     const sql = 'SELECT COUNT(*) AS totalProducts FROM product';
+//     connection.query(sql, (err, results) => {
+//         if (err) {
+//             console.error('Error fetching product count:', err);
+//             return res.status(500).json({ error: 'Something went wrong' });
+//         }
+//         const totalProducts = results[0].totalProducts;
+//         const currentPage = parseInt(req.query.page) || 1;
+//         const productsPerPage = 12;
+//         const totalPages = calculateTotalPages(totalProducts, productsPerPage);
  
-        const offset = (currentPage - 1) * productsPerPage;
-        const limit = productsPerPage;
+//         const offset = (currentPage - 1) * productsPerPage;
+//         const limit = productsPerPage;
  
-        const productQuery = `SELECT * FROM product LIMIT ${limit} OFFSET ${offset}`;
-        const cartItems = `
-        SELECT p.product_images1, p.product_name, p.product_price, c.product_quantity,c.product_name, c.product_price, c.cart_id, c.product_size, p.product_id
-        FROM product AS p
-        INNER JOIN cart AS c ON p.product_name = c.product_name`; 
+//         const productQuery = `SELECT * FROM product LIMIT ${limit} OFFSET ${offset}`;
+//         const cartItems = `
+//         SELECT p.product_images1, p.product_name, p.product_price, c.product_quantity,c.product_name, c.product_price, c.cart_id, c.product_size, p.product_id
+//         FROM product AS p
+//         INNER JOIN cart AS c ON p.product_name = c.product_name`; 
 
-        connection.query(productQuery, (err, products, cartItems) => {
-            if (err) {
-                console.error('Error fetching product data:', err);
-                return res.status(500).json({ error: 'Something went wrong' });
-            }
-            products.forEach(product => {
-                product.product_price = parseFloat(product.product_price);
-            });
+//         connection.query(productQuery, (err, products, cartItems) => {
+//             if (err) {
+//                 console.error('Error fetching product data:', err);
+//                 return res.status(500).json({ error: 'Something went wrong' });
+//             }
+//             products.forEach(product => {
+//                 product.product_price = parseFloat(product.product_price);
+//             });
 
-            res.render('all-product', {
-                products,
-                currentPage,
-                totalPages,
-                cartItems,
-            });
-        });
-    });
-});
+//             res.render('all-product', {
+//                 products,
+//                 currentPage,
+//                 totalPages,
+//                 cartItems,
+//             });
+//         });
+//     });
+// });
 
 
-app.get('/product-detail/:productId', (req, res) => {
-    const productId = req.params.productId;
-    const sql = 'SELECT * FROM product WHERE product_id = ?';
-    connection.query(sql, [productId], (err, results) => {
-        if (err) {
-            console.error('Error fetching product data:', err);
-            return res.status(500).json({ error: 'Something went wrong' });
-        }
-        if (results.length === 0) {
-            return res.status(404).json({ error: 'Product not found' });
-        }
+// app.get('/product-detail/:productId', (req, res) => {
+//     const productId = req.params.productId;
+//     const sql = 'SELECT * FROM product WHERE product_id = ?';
+//     connection.query(sql, [productId], (err, results) => {
+//         if (err) {
+//             console.error('Error fetching product data:', err);
+//             return res.status(500).json({ error: 'Something went wrong' });
+//         }
+//         if (results.length === 0) {
+//             return res.status(404).json({ error: 'Product not found' });
+//         }
 
-        const cartSql = `
-            SELECT p.product_images1, p.product_name, p.product_price, c.product_quantity,c.product_name, c.product_price, c.cart_id, c.product_size, p.product_id
-            FROM product AS p
-            INNER JOIN cart AS c ON p.product_name = c.product_name`; 
+//         const cartSql = `
+//             SELECT p.product_images1, p.product_name, p.product_price, c.product_quantity,c.product_name, c.product_price, c.cart_id, c.product_size, p.product_id
+//             FROM product AS p
+//             INNER JOIN cart AS c ON p.product_name = c.product_name`; 
 
-        connection.query(cartSql, (err, cartItems) => {
-            if (err) {
-                console.error('Error fetching cart items:', err);
-                return res.status(500).json({ error: 'Something went wrong' });
-            }
+//         connection.query(cartSql, (err, cartItems) => {
+//             if (err) {
+//                 console.error('Error fetching cart items:', err);
+//                 return res.status(500).json({ error: 'Something went wrong' });
+//             }
 
-            res.render('product-detail', { product: results[0], cartItems });
+//             res.render('product-detail', { product: results[0], cartItems });
             
-        });
-    });
-});
+//         });
+//     });
+// });
 
 
-app.post('/add_to_cart', (req, res) => {
-    const {
-        product_name,
-        product_size,
-        product_quantity,
-        product_price,
-        cart_id
-    } = req.body;
+// app.post('/add_to_cart', (req, res) => {
+//     const {
+//         product_name,
+//         product_size,
+//         product_quantity,
+//         product_price,
+//         cart_id
+//     } = req.body;
    
-    const sqlProductId = 'SELECT product_id FROM product WHERE product_name = ?';
-    connection.query(sqlProductId, [product_name], (err, results) => {
-        if (err) {
-            console.error('Error fetching product_id:', err);
-            return res.status(500).json({ error: 'Something went wrong' });
-        }
-        if (results.length === 0) {
-            console.error('Product not found:', product_name);
-            return res.status(404).json({ error: 'Product not found' });
-        }
+//     const sqlProductId = 'SELECT product_id FROM product WHERE product_name = ?';
+//     connection.query(sqlProductId, [product_name], (err, results) => {
+//         if (err) {
+//             console.error('Error fetching product_id:', err);
+//             return res.status(500).json({ error: 'Something went wrong' });
+//         }
+//         if (results.length === 0) {
+//             console.error('Product not found:', product_name);
+//             return res.status(404).json({ error: 'Product not found' });
+//         }
        
-        const productId = results[0].product_id;
-        const sqlInsertCart = 'INSERT INTO cart (cart_id, product_name, product_size, product_quantity, product_price) VALUES (?, ?, ?, ?, ?)';
-connection.query(sqlInsertCart, [cart_id, product_name, product_size, product_quantity, product_price], (err, insertResults) => {
-    if (err) {
-                console.error('Error adding product to cart:', err);
-                return res.status(500).json({ error: 'Something went wrong' });
-            }
-            console.log('Product added to cart successfully');
+//         const productId = results[0].product_id;
+//         const sqlInsertCart = 'INSERT INTO cart (cart_id, product_name, product_size, product_quantity, product_price) VALUES (?, ?, ?, ?, ?)';
+// connection.query(sqlInsertCart, [cart_id, product_name, product_size, product_quantity, product_price], (err, insertResults) => {
+//     if (err) {
+//                 console.error('Error adding product to cart:', err);
+//                 return res.status(500).json({ error: 'Something went wrong' });
+//             }
+//             console.log('Product added to cart successfully');
             
-            // Redirect back to the product detail page after adding the product to the cart
-            res.redirect(`/product-detail/${productId}`);
-        });
-    });
-});
+//             // Redirect back to the product detail page after adding the product to the cart
+//             res.redirect(`/product-detail/${productId}`);
+//         });
+//     });
+// });
 
-app.post('/remove_from_cart', (req, res) => {
-    const { cart_id } = req.body;
-    const sql = 'SELECT product_name FROM cart WHERE cart_id = ?';
-    connection.query(sql, [cart_id], (err, results) => {
-        if (err) {
-            console.error('Error fetching product_name from cart:', err);
-            return res.status(500).json({ error: 'Something went wrong' });
-        }
-        if (results.length === 0) {
-            console.error('Product not found for cart_id:', cart_id);
-            return res.status(404).json({ error: 'Product not found in cart' });
-        }
+// app.post('/remove_from_cart', (req, res) => {
+//     const { cart_id } = req.body;
+//     const sql = 'SELECT product_name FROM cart WHERE cart_id = ?';
+//     connection.query(sql, [cart_id], (err, results) => {
+//         if (err) {
+//             console.error('Error fetching product_name from cart:', err);
+//             return res.status(500).json({ error: 'Something went wrong' });
+//         }
+//         if (results.length === 0) {
+//             console.error('Product not found for cart_id:', cart_id);
+//             return res.status(404).json({ error: 'Product not found in cart' });
+//         }
 
-        const productName = results[0].product_name;
-        const sqlProductId = 'SELECT product_id FROM product WHERE product_name = ?';
-        connection.query(sqlProductId, [productName], (err, productResults) => {
-            if (err) {
-                console.error('Error fetching product_id from product:', err);
-                return res.status(500).json({ error: 'Something went wrong' });
-            }
-            if (productResults.length === 0) {
-                console.error('Product not found in product table:', productName);
-                return res.status(404).json({ error: 'Product not found in product table' });
-            }
+//         const productName = results[0].product_name;
+//         const sqlProductId = 'SELECT product_id FROM product WHERE product_name = ?';
+//         connection.query(sqlProductId, [productName], (err, productResults) => {
+//             if (err) {
+//                 console.error('Error fetching product_id from product:', err);
+//                 return res.status(500).json({ error: 'Something went wrong' });
+//             }
+//             if (productResults.length === 0) {
+//                 console.error('Product not found in product table:', productName);
+//                 return res.status(404).json({ error: 'Product not found in product table' });
+//             }
 
-            const productId = productResults[0].product_id;
+//             const productId = productResults[0].product_id;
 
-            const deleteSql = 'DELETE FROM cart WHERE cart_id = ?';
-            connection.query(deleteSql, [cart_id], (err, deleteResult) => {
-                if (err) {
-                    console.error('Error deleting product from cart:', err);
-                    return res.status(500).json({ error: 'Something went wrong' });
-                }
-                console.log('Product deleted successfully from cart');
+//             const deleteSql = 'DELETE FROM cart WHERE cart_id = ?';
+//             connection.query(deleteSql, [cart_id], (err, deleteResult) => {
+//                 if (err) {
+//                     console.error('Error deleting product from cart:', err);
+//                     return res.status(500).json({ error: 'Something went wrong' });
+//                 }
+//                 console.log('Product deleted successfully from cart');
 
-                res.redirect(`/product-detail/${productId}`);
-            });
-        });
-    });
-});
+//                 res.redirect(`/product-detail/${productId}`);
+//             });
+//         });
+//     });
+// });
 
-app.post('/register', (req, res) => {
-    const { email, firstname, lastname, password, confirmpassword } = req.body;
+// app.post('/register', (req, res) => {
+//     const { email, firstname, lastname, password, confirmpassword } = req.body;
   
-    if (password !== confirmpassword) {
-      return res.status(400).json({ error: 'Passwords do not match' });
-    }
+//     if (password !== confirmpassword) {
+//       return res.status(400).json({ error: 'Passwords do not match' });
+//     }
   
-    const sql = 'INSERT INTO registcus (email, firstname, lastname, password) VALUES (?, ?, ?, ?)';
-    connection.query(sql, [email, firstname, lastname, password], (err, result) => {
-      if (err) {
-        console.error('Error registering user:', err);
-        return res.status(500).json({ error: 'Something went wrong' });
-      }
-      console.log('User registered successfully');
-      res.redirect('account/login');
-    });
-  });
+//     const sql = 'INSERT INTO registcus (email, firstname, lastname, password) VALUES (?, ?, ?, ?)';
+//     connection.query(sql, [email, firstname, lastname, password], (err, result) => {
+//       if (err) {
+//         console.error('Error registering user:', err);
+//         return res.status(500).json({ error: 'Something went wrong' });
+//       }
+//       console.log('User registered successfully');
+//       res.redirect('account/login');
+//     });
+//   });
   
   app.post('/login', (req, res) => {
     const { email, password } = req.body;
@@ -373,144 +373,144 @@ app.get('/profile', (req, res) => {
 });
 
 
-app.post('/checkout', (req, res) => {
-    // Fetch cart items with product details from the database
-    const sql = `
-        SELECT c.cart_id, p.product_id, c.product_price, c.product_quantity 
-        FROM cart c 
-        JOIN product p ON c.product_name = p.product_name
-    `;
+// app.post('/checkout', (req, res) => {
+//     // Fetch cart items with product details from the database
+//     const sql = `
+//         SELECT c.cart_id, p.product_id, c.product_price, c.product_quantity 
+//         FROM cart c 
+//         JOIN product p ON c.product_name = p.product_name
+//     `;
 
-    connection.query(sql, (err, results) => {
-        if (err) {
-            console.error('Error fetching cart items:', err);
-            return res.status(500).json({ error: 'Failed to fetch cart items' });
-        }
+//     connection.query(sql, (err, results) => {
+//         if (err) {
+//             console.error('Error fetching cart items:', err);
+//             return res.status(500).json({ error: 'Failed to fetch cart items' });
+//         }
 
-        // Check if results is not null and is iterable
-        if (!results || !Array.isArray(results)) {
-            console.error('Error fetching cart items:', results);
-            return res.status(500).json({ error: 'Failed to fetch cart items' });
-        }
+//         // Check if results is not null and is iterable
+//         if (!results || !Array.isArray(results)) {
+//             console.error('Error fetching cart items:', results);
+//             return res.status(500).json({ error: 'Failed to fetch cart items' });
+//         }
 
-        // Calculate total bill price
-        let totalPrice = 0;
-        results.forEach(item => {
-            // Convert product_price to numeric type before calculation
-            const productPrice = parseFloat(item.product_price);
-            totalPrice += productPrice * item.product_quantity;
-        });
+//         // Calculate total bill price
+//         let totalPrice = 0;
+//         results.forEach(item => {
+//             // Convert product_price to numeric type before calculation
+//             const productPrice = parseFloat(item.product_price);
+//             totalPrice += productPrice * item.product_quantity;
+//         });
 
-        // Prepare the values for insertion into the bill table
-        const values = results.map(item => {
-            const productPrice = parseFloat(item.product_price);
-            return [item.product_id, item.product_quantity, (productPrice * item.product_quantity)];
-        });
+//         // Prepare the values for insertion into the bill table
+//         const values = results.map(item => {
+//             const productPrice = parseFloat(item.product_price);
+//             return [item.product_id, item.product_quantity, (productPrice * item.product_quantity)];
+//         });
 
-        // Insert the bill into the bill table
-        const insertSql = 'INSERT INTO bill (product_id, number_of_items, bill_price) VALUES ?';
-        connection.query(insertSql, [values], (error, result) => {
-            if (error) {
-                console.error('Error inserting bill:', error);
-                return res.status(500).json({ error: 'Failed to insert bill' });
-            }
+//         // Insert the bill into the bill table
+//         const insertSql = 'INSERT INTO bill (product_id, number_of_items, bill_price) VALUES ?';
+//         connection.query(insertSql, [values], (error, result) => {
+//             if (error) {
+//                 console.error('Error inserting bill:', error);
+//                 return res.status(500).json({ error: 'Failed to insert bill' });
+//             }
 
-            // Delete cart items after successful checkout
-            const deleteCartItemsSql = 'DELETE FROM cart';
-            connection.query(deleteCartItemsSql, (deleteError, deleteResult) => {
-                if (deleteError) {
-                    console.error('Error deleting cart items:', deleteError);
-                    return res.status(500).json({ error: 'Failed to delete cart items' });
-                }
+//             // Delete cart items after successful checkout
+//             const deleteCartItemsSql = 'DELETE FROM cart';
+//             connection.query(deleteCartItemsSql, (deleteError, deleteResult) => {
+//                 if (deleteError) {
+//                     console.error('Error deleting cart items:', deleteError);
+//                     return res.status(500).json({ error: 'Failed to delete cart items' });
+//                 }
 
-                res.redirect(`/`);  });
-        });
-    });
-});
+//                 res.redirect(`/`);  });
+//         });
+//     });
+// });
 
-  app.get('/categories', (req, res) => {
-    const fetchCategoriesSQL = 'SELECT * FROM category';
-    connection.query(fetchCategoriesSQL, (err, results) => {
-        if (err) {
-            console.error('Error fetching categories:', err);
-            return res.status(500).json({ error: 'Something went wrong' });
-        }
-        res.json(results);
-    });
-});
+// app.get('/categories', (req, res) => {
+//     const fetchCategoriesSQL = 'SELECT * FROM category';
+//     connection.query(fetchCategoriesSQL, (err, results) => {
+//         if (err) {
+//             console.error('Error fetching categories:', err);
+//             return res.status(500).json({ error: 'Something went wrong' });
+//         }
+//         res.json(results);
+//     });
+// });
   
-app.get('/category-page-layout', (req, res) => {
-    const categoryId = req.query.category_id || '1';  
-    const categoryName = req.query.category_name || 'Clothing';  
+// app.get('/category-page-layout', (req, res) => {
+//     const categoryId = req.query.category_id || '1';  
+//     const categoryName = req.query.category_name || 'Clothing';  
 
-    const sql = `SELECT * FROM product WHERE category_id = ?`;
-    const cartSql = `
-    SELECT p.product_images1, p.product_name, p.product_price, c.product_quantity,c.product_name, c.product_price, c.cart_id, c.product_size, p.product_id
-    FROM product AS p
-    INNER JOIN cart AS c ON p.product_name = c.product_name`;
+//     const sql = `SELECT * FROM product WHERE category_id = ?`;
+//     const cartSql = `
+//     SELECT p.product_images1, p.product_name, p.product_price, c.product_quantity,c.product_name, c.product_price, c.cart_id, c.product_size, p.product_id
+//     FROM product AS p
+//     INNER JOIN cart AS c ON p.product_name = c.product_name`;
 
-    connection.query(sql, [categoryId], (err, results) => {
-        if (err) {
-            console.error('Error fetching product data:', err);
-            return res.status(500).json({ error: 'Something went wrong' });
-        }
+//     connection.query(sql, [categoryId], (err, results) => {
+//         if (err) {
+//             console.error('Error fetching product data:', err);
+//             return res.status(500).json({ error: 'Something went wrong' });
+//         }
 
-        connection.query(cartSql, (err, cartItems) => {
-            if (err) {
-                console.error('Error fetching cart items:', err);
-                return res.status(500).json({ error: 'Something went wrong' });
-            }
+//         connection.query(cartSql, (err, cartItems) => {
+//             if (err) {
+//                 console.error('Error fetching cart items:', err);
+//                 return res.status(500).json({ error: 'Something went wrong' });
+//             }
 
-            results.forEach(product => {
-                product.product_price = parseFloat(product.product_price);
-            });
+//             results.forEach(product => {
+//                 product.product_price = parseFloat(product.product_price);
+//             });
 
-            res.render('category-page-layout', {
-                category_id: categoryId,
-                category_name: categoryName,
-                products: results,
-                cartItems: cartItems 
-            });
-        });
-    });
-});
+//             res.render('category-page-layout', {
+//                 category_id: categoryId,
+//                 category_name: categoryName,
+//                 products: results,
+//                 cartItems: cartItems 
+//             });
+//         });
+//     });
+// });
 
 
-app.get('/', (req, res) => {
-    let categoryId = req.query.category_id || '1'; 
-    let categoryName = req.query.category_name || 'Clothing';  
+// app.get('/', (req, res) => {
+//     let categoryId = req.query.category_id || '1'; 
+//     let categoryName = req.query.category_name || 'Clothing';  
 
-    const sql = `SELECT * FROM product WHERE category_id = ?`;
-    const cartSql = `
-    SELECT p.product_images1, p.product_name, p.product_price, c.product_quantity, c.product_name, c.product_price, c.cart_id, c.product_size, p.product_id
-    FROM product AS p
-    INNER JOIN cart AS c ON p.product_name = c.product_name`;
+//     const sql = `SELECT * FROM product WHERE category_id = ?`;
+//     const cartSql = `
+//     SELECT p.product_images1, p.product_name, p.product_price, c.product_quantity, c.product_name, c.product_price, c.cart_id, c.product_size, p.product_id
+//     FROM product AS p
+//     INNER JOIN cart AS c ON p.product_name = c.product_name`;
 
-    connection.query(sql, [categoryId], (err, results) => {
-        if (err) {
-            console.error('Error fetching product data:', err);
-            return res.status(500).json({ error: 'Something went wrong' });
-        }
+//     connection.query(sql, [categoryId], (err, results) => {
+//         if (err) {
+//             console.error('Error fetching product data:', err);
+//             return res.status(500).json({ error: 'Something went wrong' });
+//         }
 
-        connection.query(cartSql, (err, cartItems) => {
-            if (err) {
-                console.error('Error fetching cart items:', err);
-                return res.status(500).json({ error: 'Something went wrong' });
-            }
+//         connection.query(cartSql, (err, cartItems) => {
+//             if (err) {
+//                 console.error('Error fetching cart items:', err);
+//                 return res.status(500).json({ error: 'Something went wrong' });
+//             }
 
-            results.forEach(product => {
-                product.product_price = parseFloat(product.product_price);
-            });
+//             results.forEach(product => {
+//                 product.product_price = parseFloat(product.product_price);
+//             });
 
-            res.render('home-page', {
-                category_id: categoryId,
-                category_name: categoryName,
-                products: results,
-                cartItems: cartItems
-            });            
-        });
-    });
-});
+//             res.render('home-page', {
+//                 category_id: categoryId,
+//                 category_name: categoryName,
+//                 products: results,
+//                 cartItems: cartItems
+//             });            
+//         });
+//     });
+// });
 
 
 app.post('/sub', (req, res) => {
@@ -605,6 +605,7 @@ app.get('/contact-us', (req, res) => {
 });
 
 
+
 app.get('/account/register', (req, res) => {
     let categoryId = req.query.category_id || '1'; 
     let categoryName = req.query.category_name || 'Clothing';  
@@ -678,12 +679,3 @@ app.get('/account/login', (req, res) => {
         });
     });
 });
-
-
-
-// Start the server
-const port = 11150;
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
- 
