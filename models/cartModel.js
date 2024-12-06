@@ -1,6 +1,6 @@
 const connection = require('../config/db');
 
-exports.removeFromCart = (cart_id, callback) => {
+const removeFromCart = (cart_id, callback) => {
     const sql = 'SELECT product_name FROM cart WHERE cart_id = ?';
     connection.query(sql, [cart_id], (err, results) => {
         if (err) return callback(err);
@@ -24,7 +24,7 @@ exports.removeFromCart = (cart_id, callback) => {
     });
 };
 
-exports.checkout = (callback) => {
+const checkout = (callback) => {
     const sql = `
         SELECT c.cart_id, p.product_id, c.product_price, c.product_quantity 
         FROM cart c 
@@ -55,4 +55,19 @@ exports.checkout = (callback) => {
             });
         });
     });
+};
+
+const updateQuantity = (cartId, newQuantity, callback) => {
+    const sql = 'UPDATE cart SET product_quantity = ? WHERE cart_id = ?';
+    connection.query(sql, [newQuantity, cartId], (err, result) => {
+        if (err) return callback(err);
+        if (result.affectedRows === 0) return callback(new Error('Cart item not found'));
+        callback(null, result);
+    });
+};
+
+module.exports = {
+    removeFromCart,
+    checkout,
+    updateQuantity,
 };

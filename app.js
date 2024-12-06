@@ -30,6 +30,13 @@ app.use('/wishlist', wishlistRoutes);
 app.use('/contact-us', contactUsRoute);
 app.use('/account', accountRoutes);
 
+app.post('/failure', (req, res) => {
+  res.redirect('/');
+});
+
+app.post('/success', (req, res) => { 
+  res.redirect('/'); 
+});
 
 const PORT = 3000;
 app.listen(PORT, () => {

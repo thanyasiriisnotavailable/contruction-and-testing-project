@@ -20,3 +20,15 @@ exports.checkout = (req, res) => {
         res.redirect(`/`);
     });
 };
+
+exports.updateQuantity = (req, res) => {
+    const { cartId, newQuantity } = req.body;
+    cartModel.updateQuantity(cartId, newQuantity, (err, result) => {
+        if (err) {
+            console.error('Error updating quantity:', err);
+            return res.status(500).json({ error: 'Something went wrong' });
+        }
+        console.log('Quantity updated successfully');
+        res.status(200).json({ message: 'Quantity updated successfully' });
+    });
+};

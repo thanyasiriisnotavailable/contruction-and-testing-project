@@ -214,7 +214,7 @@
                                   <% } %>
                               </select>
                             </div>
-                            <form id="removeForm<%= cartItem.cart_id %>" action="/remove_from_cart" method="POST">
+                            <form id="removeForm<%= cartItem.cart_id %>" action="/remove-from-cart" method="POST">
                               <input type="hidden" name="cart_id" value="<%= cartItem.cart_id %>">
                               <button type="button" onclick="removeCartItem('<%= cartItem.cart_id %>')">Remove</button>
                             </form>

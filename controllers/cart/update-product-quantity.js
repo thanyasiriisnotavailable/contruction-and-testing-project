@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function updateQuantityOnServer(newQuantity) {
     const cartId = numberElement.dataset.cartId;
-    fetch("/update_quantity", {
+    fetch("/update-quantity", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
