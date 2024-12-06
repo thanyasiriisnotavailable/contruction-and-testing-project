@@ -83,44 +83,32 @@ exports.getProductDetail = (req, res) => {
     });
 };
 
-// Controller for adding a product to the cart
 exports.addToCart = (req, res) => {
     const { product_name, product_size, product_quantity, product_price, cart_id } = req.body;
 
-    // Add product to the cart
-    productModel.addToCart(cart_id, product_name, product_size, product_quantity, product_price, (err, result) => {
+    // Get product_id by product_name
+    productModel.getProductByName(product_name, (err, results) => {
         if (err) {
-            console.error('Error adding product to cart:', err);
+            console.error('Error fetching product ID:', err);
             return res.status(500).json({ error: 'Something went wrong' });
         }
 
-        console.log('Product added to cart successfully');
-        res.redirect(`/product-detail/${product_name}`);
+        if (results.length === 0) {
+            console.error('Product not found:', product_name);
+            return res.status(404).json({ error: 'Product not found' });
+        }
+
+        const product_id = results[0].product_id;
+
+        // Add product to the cart
+        productModel.addToCart(cart_id, product_name, product_size, product_quantity, product_price, (err) => {
+            if (err) {
+                console.error('Error adding product to cart:', err);
+                return res.status(500).json({ error: 'Something went wrong' });
+            }
+
+            console.log('Product added to cart successfully');
+            res.redirect(`/product-detail/${product_id}`); // Use product_id for redirection
+        });
     });
 };
-
-// exports.addToWishlist = (req, res) => {
-//     const { productId } = req.body;
-
-//     productModel.addToWishlist(productId, (err, results) => {
-//         if (err) {
-//             console.error('Error adding product to wishlist:', err);
-//             return res.status(500).json({ error: 'Failed to add product to wishlist' });
-//         }
-//         console.log('Product added to wishlist:', productId);
-//         res.status(200).json({ message: 'Product added to wishlist successfully' });
-//     });
-// };
-
-// exports.addToWishlist = (req, res) => {
-//     const userId = req.session.userId;
-//     const { productId } = req.body;
-
-//     productModel.addToWishlist(userId, productId, (err) => {
-//         if (err) {
-//             console.error('Error adding to wishlist:', err);
-//             return res.status(500).send('An error occurred while updating the wishlist');
-//         }
-//         res.send('Product added to wishlist successfully');
-//     });
-// };
