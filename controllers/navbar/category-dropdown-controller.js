@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   console.log("Fetching categories...");
 
-  fetch("/api/category/categories")
+  fetch("/category/categories")
     .then((response) => {
       if (!response.ok) {
         throw new Error("Failed to fetch categories");

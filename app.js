@@ -23,11 +23,7 @@ app.use('/css', express.static(path.join(__dirname, 'public/css')));
 app.use('/image', express.static(path.join(__dirname, 'public/image')));
 
 app.use('/', homePageRoutes, newsLetterRoutes, categoryRoutes, wishlistRoutes, productRoutes, cartRoutes, contactUsRoute, accountRoutes); 
-app.use('/api/products', productRoutes);
-app.use('/api/category', categoryRoutes);
-app.use('/api/cart', cartRoutes);
-app.use('/wishlist', wishlistRoutes);
-app.use('/contact-us', contactUsRoute);
+app.use('/category', categoryRoutes);
 app.use('/account', accountRoutes);
 
 app.post('/failure', (req, res) => {
