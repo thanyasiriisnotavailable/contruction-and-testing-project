@@ -4,12 +4,11 @@ const bodyParser = require('body-parser');
 const newsLetterRoutes = require('./controllers/news/news-letter-controller');
 const homePageRoutes = require('./routes/homePageRoute');
 const productRoutes = require('./routes/productRoutes');
-const userRoutes = require('./routes/userRoute');
 const categoryRoutes = require('./routes/categoryRoutes');
 const cartRoutes = require('./routes/cartRoutes');
 const wishlistRoutes = require('./routes/wishlistRoutes');
 const contactUsRoute = require('./routes/contactusRoute');
-const accountRoutes = require('./routes/userRoute');
+const accountRoutes = require('./routes/accountRoutes');
 const app = express();
 
 app.use(express.static('public'));
