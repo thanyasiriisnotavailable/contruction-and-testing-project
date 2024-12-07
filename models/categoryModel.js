@@ -30,3 +30,31 @@ exports.getProductsByCategory = (categoryId, callback) => {
         });
     });
 };
+
+exports.getTotalProducts = (callback) => {
+    const sql = 'SELECT COUNT(*) AS totalProducts FROM product';
+    connection.query(sql, (err, results) => {
+        if (err) return callback(err);
+        callback(null, results[0].totalProducts);
+    });
+};
+
+exports.getAllProducts = (offset, limit, callback) => {
+    const sql = `SELECT * FROM product LIMIT ? OFFSET ?`;
+    connection.query(sql, [limit, offset], (err, results) => {
+        if (err) return callback(err);
+        callback(null, results);
+    });
+};
+
+exports.getCartItems = (callback) => {
+    const cartSql = `
+        SELECT p.product_images1, p.product_name, p.product_price, c.product_quantity, c.product_name, c.product_price, c.cart_id, c.product_size, p.product_id
+        FROM product AS p
+        INNER JOIN cart AS c ON p.product_name = c.product_name
+    `;
+    connection.query(cartSql, (err, cartItems) => {
+        if (err) return callback(err);
+        callback(null, cartItems);
+    });
+};
